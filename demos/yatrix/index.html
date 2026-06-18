@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f766e" />
+  <title>Yatrix Nepal — Your Journey, Unified</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: { brand: { DEFAULT: "#0f766e", dark: "#115e59", light: "#5eead4" }, accent: "#f97316" },
+        fontFamily: { sans: ["Inter", "system-ui", "sans-serif"] },
+      } }
+    };
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-slate-100 font-sans text-slate-800">
+  <!-- Phone-sized app frame -->
+  <div id="app" class="relative mx-auto flex min-h-screen w-full max-w-md flex-col bg-slate-50 shadow-xl">
+    <!-- Top header -->
+    <header id="topbar" class="sticky top-0 z-20 bg-brand px-4 pb-3 pt-[calc(env(safe-area-inset-top)+0.75rem)] text-white shadow-md">
+      <!-- filled by app.js per screen -->
+    </header>
+
+    <!-- Screen content -->
+    <main id="screen" class="flex-1 overflow-y-auto pb-24"></main>
+
+    <!-- Bottom tab bar -->
+    <nav id="tabbar" class="fixed bottom-0 left-1/2 z-20 flex w-full max-w-md -translate-x-1/2 justify-around border-t border-slate-200 bg-white pb-[env(safe-area-inset-bottom)] text-[11px]">
+      <!-- filled by app.js -->
+    </nav>
+
+    <!-- Toast -->
+    <div id="toast" class="pointer-events-none fixed bottom-24 left-1/2 z-30 -translate-x-1/2 translate-y-4 rounded-full bg-slate-900/90 px-4 py-2 text-sm text-white opacity-0 transition-all duration-300"></div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

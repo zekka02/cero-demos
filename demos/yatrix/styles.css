@@ -1,0 +1,17 @@
+/* Yatrix Nepal — small overrides on top of Tailwind CDN */
+
+html, body { -webkit-tap-highlight-color: transparent; }
+
+/* App frame fills the screen on mobile, looks like a phone on desktop */
+@media (min-width: 480px) {
+  body { padding: 1rem 0; }
+  #app { border-radius: 1.5rem; overflow: hidden; min-height: calc(100vh - 2rem); }
+  #tabbar, .fixed.bottom-16, #toast { border-radius: 0; }
+}
+
+/* Hide horizontal scrollbars on carousels */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Smooth image fade-in feel */
+img { transition: opacity 0.2s; }
