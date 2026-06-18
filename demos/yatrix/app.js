@@ -1,13 +1,13 @@
-// Yatrix Nepal — app logic (vanilla JS, hash router, localStorage)
+// Yatrix Nepal app logic (vanilla JS, hash router, localStorage)
 
-/* ---------- session (in-memory only — resets on refresh, MVP) ---------- */
+/* ---------- session (in-memory only, resets on refresh, MVP) ---------- */
 let SESSION = null;
 const MAX = {
   name: "Max Verstappen",
   email: "Max@simplyLovely.com",
-  phone: "+31 33 1 1997",          // 33 = his number · 1 = champion · 1997 = born
-  location: "Monaco 🇲🇨 · Hasselt 🇳🇱",
-  member: "Member since Max",
+  phone: "+31 33 1 1997",          // 33 = his number, 1 = champion, 1997 = born
+  location: "Monaco, Hasselt",
+  member: "Member since June 12",
   img: "max.jpg",
 };
 
@@ -139,7 +139,7 @@ function screenCategory(catId) {
     <div class="flex items-center gap-3">
       <a href="#/explore" class="text-xl">←</a>
       <div><h1 class="text-xl font-bold">${cat ? cat.icon + " " + cat.label : "Browse"}</h1>
-      <p class="text-xs text-teal-100">${items.length} options${cat ? " · " + cat.blurb : ""}</p></div>
+      <p class="text-xs text-teal-100">${items.length} options${cat ? ", " + cat.blurb : ""}</p></div>
     </div>`);
   $("#screen").innerHTML = `<div class="space-y-3 p-4">${items.map((x) => listCard(x, catId)).join("")}</div>`;
 }
@@ -166,12 +166,12 @@ function screenItem(id) {
       <p class="text-2xl font-extrabold text-brand">${npr(item.price)}</p>
       <p class="leading-relaxed text-slate-600">${item.desc}</p>
       <div class="rounded-2xl bg-teal-50 p-3 text-sm text-teal-800">
-        ✅ Verified provider · Free cancellation up to 48h before (demo)
+        ✅ Verified provider. Free cancellation up to 48h before (demo)
       </div>
     </div>
     <div class="fixed bottom-16 left-1/2 z-10 w-full max-w-md -translate-x-1/2 border-t border-slate-200 bg-white p-3 pb-[calc(env(safe-area-inset-bottom)+0.75rem)]">
       <button id="saveBtn" class="w-full rounded-xl ${saved ? "bg-slate-200 text-slate-600" : "bg-brand text-white"} py-3 font-bold shadow active:scale-[.99] transition">
-        ${saved ? "✓ Saved to Trip — view My Trip" : "Add to My Trip"}
+        ${saved ? "✓ Saved to Trip, view My Trip" : "Add to My Trip"}
       </button>
     </div>`;
   $("#saveBtn").onclick = () => {
@@ -226,7 +226,7 @@ function screenTrip() {
           <span class="text-xl font-extrabold text-brand">${npr(total)}</span>
         </div>
         <p class="mt-1 text-xs text-slate-400">Treks are free to view; permits & guide costs shown separately.</p>
-        <button onclick="toast('This is an MVP demo — payments coming soon!')" class="mt-3 w-full rounded-xl bg-accent py-3 font-bold text-white active:scale-[.99] transition">Proceed to checkout (demo)</button>
+        <button onclick="toast('This is an MVP demo, payments coming soon!')" class="mt-3 w-full rounded-xl bg-accent py-3 font-bold text-white active:scale-[.99] transition">Proceed to checkout (demo)</button>
       </div>
     </div>`;
 
@@ -262,11 +262,11 @@ function screenProfile() {
       <!-- about yatrix -->
       <div class="rounded-2xl bg-brand p-5 text-white">
         <p class="font-bold">Your journey, unified. 🇳🇵</p>
-        <p class="mt-1 text-sm text-teal-50">Hotels, vehicles, guides, treks & packages — all in one place. Your trip is saved privately on your device.</p>
+        <p class="mt-1 text-sm text-teal-50">Hotels, vehicles, guides, treks and packages, all in one place. Your trip is saved privately on your device.</p>
       </div>
 
       <button id="signOut" class="w-full rounded-xl border border-rose-200 bg-white py-3 font-bold text-rose-500 active:scale-[.99] transition">Sign out</button>
-      <p class="text-center text-xs text-slate-400">MVP demo · sign-in resets when you refresh.</p>
+      <p class="text-center text-xs text-slate-400">MVP demo. Sign-in resets when you refresh.</p>
     </div>`;
 
   $("#signOut").onclick = () => { SESSION = null; toast("Signed out"); screenProfile(); renderTabbar(); };

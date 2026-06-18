@@ -1,4 +1,4 @@
-# Yatrix Nepal — MVP
+# Yatrix Nepal MVP
 
 A mobile-first travel app prototype for Nepal that unifies **hotels, vehicle rental, local
 guides, treks, and travel packages** into one place, plus a personal **trip planner**.
@@ -14,7 +14,7 @@ stored locally on your device (`localStorage`).
 ## How to run
 **Easiest:** just double-click `index.html` to open it in your browser.
 
-**Or run a tiny local server** (better — avoids any browser file restrictions):
+**Or run a tiny local server** (better, avoids any browser file restrictions):
 ```bash
 # Python 3
 python -m http.server 8000
@@ -33,11 +33,11 @@ the device toolbar (Ctrl/Cmd+Shift+M), set width ~390px.
 | `styles.css` | Small overrides on top of Tailwind |
 
 ## Features
-- **Explore** — search + service categories + popular destinations + featured stays
+- **Explore**: search, service categories, popular destinations, featured stays
 - **Browse** any category, open a **detail** page
 - **Add to My Trip** (saved on device) with a confirmation toast
-- **My Trip** — items grouped by category, estimated total, remove items
-- **About** — what Yatrix is
+- **My Trip**: items grouped by category, estimated total, remove items
+- **Profile**: sign-in plus Max profile info
 
 ## What's intentionally NOT here (future work)
 Real payments, login/accounts, live maps & GPS, real partner inventory, admin panel, a
