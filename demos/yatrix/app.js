@@ -365,6 +365,11 @@ function router() {
   renderTabbar();
 }
 
+// cache-bust image assets so updated photos always show (bump when images change)
+const ASSET_V = "?v=3";
+[...Object.values(DATA).flat(), ...DESTINATIONS].forEach((o) => { if (o.img && !o.img.includes("?v=")) o.img += ASSET_V; });
+MAX.img += ASSET_V;
+
 window.addEventListener("hashchange", router);
 window.addEventListener("DOMContentLoaded", router);
 router();
