@@ -4,119 +4,445 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Always Garage Door Repair Dallas — Garage door supplier</title>
+<meta name="description" content="Family-owned garage door installation, spring replacement, and opener repair in Dallas, TX. Same-day service. Call (214) 628-5002.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Open+Sans:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  :root { --font-head: 'Poppins', sans-serif; --font-body: 'Open Sans', sans-serif; }
-  body { font-family: var(--font-body); background:#F8FAFC; color:#0F172A; }
-  .font-\[var\(--font-head\)\] { font-family: var(--font-head); }
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+  :root {
+    --accent: #F97316;
+    --accent-dim: rgba(249,115,22,0.12);
+    --dark: #0F172A;
+    --mid: #1E293B;
+    --muted: #64748B;
+    --bg: #F8FAFC;
+    --white: #ffffff;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--dark); }
+  h1, h2, h3, h4, .head { font-family: 'Outfit', sans-serif; }
   html { scroll-behavior: smooth; }
+
+  /* Grain texture */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px;
+  }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .delay-1 { transition-delay: .1s; }
+  .delay-2 { transition-delay: .2s; }
+  .delay-3 { transition-delay: .3s; }
+  .delay-4 { transition-delay: .4s; }
+
+  /* Nav */
+  .nav-link { font-size: .875rem; font-weight: 600; color: var(--muted); text-decoration: none; transition: color .2s; }
+  .nav-link:hover { color: var(--dark); }
+
+  /* Buttons */
+  .btn-orange {
+    display: inline-block; font-family: 'Outfit', sans-serif; font-weight: 700;
+    background: var(--accent); color: #fff; border-radius: 10px;
+    padding: 10px 22px; font-size: .875rem; text-decoration: none;
+    box-shadow: 0 4px 16px rgba(249,115,22,.3);
+    transition: transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s;
+  }
+  .btn-orange:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 24px rgba(249,115,22,.4); }
+  .btn-orange:active { transform: scale(.97); }
+
+  .btn-outline {
+    display: inline-block; font-family: 'Outfit', sans-serif; font-weight: 700;
+    color: var(--dark); border: 2px solid var(--dark); border-radius: 10px;
+    padding: 10px 22px; font-size: .875rem; text-decoration: none;
+    transition: background .22s, color .22s, transform .22s cubic-bezier(.22,1,.36,1);
+  }
+  .btn-outline:hover { background: var(--dark); color: #fff; transform: translateY(-2px); }
+  .btn-outline:active { transform: scale(.97); }
+
+  .btn-orange-lg {
+    display: inline-block; font-family: 'Outfit', sans-serif; font-weight: 800;
+    background: var(--accent); color: #fff; border-radius: 14px;
+    padding: 16px 36px; font-size: 1.125rem; text-decoration: none;
+    box-shadow: 0 6px 24px rgba(249,115,22,.35);
+    transition: transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s;
+  }
+  .btn-orange-lg:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 32px rgba(249,115,22,.45); }
+  .btn-orange-lg:active { transform: scale(.97); }
+
+  /* Gallery */
+  .gallery-item { overflow: hidden; border-radius: 14px; }
+  .gallery-item img { transition: transform .55s cubic-bezier(.22,1,.36,1); width: 100%; height: 192px; object-fit: cover; display: block; }
+  .gallery-item:hover img { transform: scale(1.07); }
+
+  /* Service row */
+  .service-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--accent); color: #fff;
+    font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.1rem;
+    margin-bottom: 16px; flex-shrink: 0;
+  }
+  .service-img-wrap { overflow: hidden; border-radius: 20px; }
+  .service-img-wrap img { transition: transform .55s cubic-bezier(.22,1,.36,1); width: 100%; height: 280px; object-fit: cover; display: block; }
+  .service-img-wrap:hover img { transform: scale(1.04); }
+
+  /* Review card */
+  .review-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 24px;
+    border-left: 4px solid var(--accent);
+    box-shadow: 0 2px 20px rgba(15,23,42,.07);
+    transition: transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s;
+  }
+  .review-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(15,23,42,.12); }
+
+  /* Form fields */
+  .field {
+    width: 100%; padding: 12px 16px;
+    border-radius: 10px; border: 1.5px solid #CBD5E1;
+    background: var(--white); color: var(--dark);
+    font-size: .875rem; font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .field:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(249,115,22,.15); }
+  .field::placeholder { color: #94A3B8; }
+
+  .label { font-size: .8125rem; font-weight: 600; color: var(--mid); margin-bottom: 6px; display: block; }
+
+  /* Accent underline */
+  .underline-accent { position: relative; }
+  .underline-accent::after {
+    content: ''; position: absolute; bottom: -6px; left: 0;
+    width: 44px; height: 4px; border-radius: 2px; background: var(--accent);
+  }
+  .underline-accent-center::after { left: 50%; transform: translateX(-50%); }
 </style>
 </head>
 <body>
-<nav class="sticky top-0 z-50 backdrop-blur-md border-b" style="background:#F8FAFCcc;border-color:#64748B33">
-  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between"><span class="font-[var(--font-head)] text-xl font-bold" style="color:#0F172A">Always Garage Door Repair Dallas</span><div class="flex items-center gap-6">
-      <div class="hidden md:flex items-center gap-6"><a href="#services" class="text-sm font-semibold hover:opacity-70" style="color:#0F172A">Services</a><a href="#reviews" class="text-sm font-semibold hover:opacity-70" style="color:#0F172A">Reviews</a><a href="#contact" class="text-sm font-semibold hover:opacity-70" style="color:#0F172A">Contact</a></div>
-      <a href="tel:+12146285002" class="inline-block px-5 py-2 text-sm rounded-2xl font-bold transition hover:scale-105 hover:opacity-95" style="background:#1E293B;color:#FFFFFF">Get a Free Quote</a></div></div>
+
+<!-- NAV -->
+<nav style="position:sticky;top:0;z-index:50;background:rgba(248,250,252,0.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(100,116,139,0.14);">
+  <div style="max-width:1280px;margin:0 auto;padding:0 24px;height:66px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+    <span class="head" style="font-size:1.1rem;font-weight:800;color:var(--dark);letter-spacing:-0.02em;white-space:nowrap;">Always Garage Door Repair</span>
+    <div style="display:flex;align-items:center;gap:28px;">
+      <div style="display:flex;align-items:center;gap:20px;" class="hidden md:flex">
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#reviews" class="nav-link">Reviews</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="#book" class="btn-orange">Get a Quote</a>
+        <a href="tel:+12146285002" class="btn-outline hidden md:inline-block">Call Now</a>
+      </div>
+    </div>
+  </div>
 </nav>
-<section class="relative min-h-screen flex items-center" style="background:#F8FAFC">
-      <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAECYCSJE9oDEXi6HH_FDSVkcSd0zT2WLan4It-gA_n-zErBuDLEkaU7Rt_jNcbcPKKCN3hbb_YAmZcOcFFB74jU2my3oZ19NtWX0jqo6rqSKSu2mvpFQsSlvNTZ2h0wnGX7-1hebc7spoLr=w1920-h1080-k-no" alt="" class="absolute inset-0 w-full h-full object-cover opacity-30">
-      <div class="absolute inset-0" style="background:linear-gradient(180deg, #F8FAFCcc, #F8FAFCf2)"></div>
-      <div class="relative z-10 max-w-5xl mx-auto px-6 py-32 text-center reveal">
-        <p class="uppercase tracking-[0.2em] text-sm font-bold mb-4" style="color:#1E293B">Garage door supplier · Dallas, TX</p><h1 class="font-[var(--font-head)] text-5xl sm:text-7xl font-bold leading-[1.05] mb-6" style="color:#0F172A">Your Neighbors, Not Strangers</h1>
-        <p class="text-lg sm:text-xl mb-10 max-w-2xl mx-auto" style="color:#64748B">Local, family-owned garage door supplier you can count on in Dallas, TX</p><a href="tel:+12146285002" class="inline-block px-8 py-4 text-lg rounded-2xl font-bold transition hover:scale-105 hover:opacity-95" style="background:#1E293B;color:#FFFFFF">Get a Free Quote</a>
-      </div>
-    </section>
-<section class="py-6 border-y" style="background:#FFFFFF;border-color:#64748B22">
-    <div class="max-w-5xl mx-auto px-6 flex flex-wrap items-center justify-center gap-8 text-sm font-bold">
-      <span style="color:#0F172A">★ 4.8 Rating</span>
-      <span style="color:#0F172A">Trusted by hundreds in Dallas, TX</span>
-      <span style="color:#0F172A">📍 Dallas, TX</span>
+
+<!-- HERO -->
+<section style="position:relative;min-height:100dvh;display:flex;align-items:center;background:var(--bg);overflow:hidden;">
+  <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAECYCSJE9oDEXi6HH_FDSVkcSd0zT2WLan4It-gA_n-zErBuDLEkaU7Rt_jNcbcPKKCN3hbb_YAmZcOcFFB74jU2my3oZ19NtWX0jqo6rqSKSu2mvpFQsSlvNTZ2h0wnGX7-1hebc7spoLr=w1920-h1080-k-no"
+       alt="Always Garage Door Repair Dallas" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.22;">
+  <div style="position:absolute;inset:0;background:linear-gradient(160deg,rgba(248,250,252,0.6) 0%,rgba(248,250,252,0.97) 70%);"></div>
+  <div class="reveal" style="position:relative;z-index:1;max-width:900px;margin:0 auto;padding:120px 24px;text-align:center;">
+    <p style="display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;">
+      <span style="width:24px;height:2px;background:var(--accent);display:inline-block;border-radius:1px;"></span>
+      Garage door specialist · Dallas, TX
+      <span style="width:24px;height:2px;background:var(--accent);display:inline-block;border-radius:1px;"></span>
+    </p>
+    <h1 class="head" style="font-size:clamp(3rem,8vw,5.5rem);font-weight:900;line-height:1.02;letter-spacing:-0.03em;color:var(--dark);margin-bottom:24px;text-wrap:balance;">Your Neighbors,<br>Not Strangers</h1>
+    <p style="font-size:1.15rem;color:var(--muted);max-width:540px;margin:0 auto;line-height:1.65;text-wrap:pretty;">Family-owned garage door repair and installation serving Dallas and North Dallas. Same-day response, fair pricing, no surprises.</p>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<section style="background:var(--mid);padding:18px 0;border-top:1px solid rgba(255,255,255,0.06);">
+  <div style="max-width:900px;margin:0 auto;padding:0 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:32px;">
+    <span style="color:#fff;font-size:.875rem;font-weight:600;display:flex;align-items:center;gap:6px;">
+      <span style="color:var(--accent);">★★★★★</span> 4.8 on Google
+    </span>
+    <span style="color:#94A3B8;font-size:.875rem;">|</span>
+    <span style="color:#fff;font-size:.875rem;font-weight:600;">32+ verified reviews</span>
+    <span style="color:#94A3B8;font-size:.875rem;">|</span>
+    <span style="color:#fff;font-size:.875rem;font-weight:600;">📍 Dallas, TX · Preston Rd</span>
+    <span style="color:#94A3B8;font-size:.875rem;">|</span>
+    <span style="color:#fff;font-size:.875rem;font-weight:600;">Same-day service available</span>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" style="background:var(--bg);padding:80px 0;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;">
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;" class="sm:grid-cols-3 lg:grid-cols-4" id="gallery-grid">
+      <div class="gallery-item reveal"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAF8ablZXj69Tye0gKbF23ut-DaWEOpfrCrUYatL-25JgWz9m0g_B5JHA2mY9r6Nr4Z0MRe4SuI4PPAECmbUdeWFglkccqgODmIrpuPzmve6uRZFOXwiDrH7O7cg1mb_C3uTiZKUrNMg1rPr=w1920-h1080-k-no" alt="Garage door installation work by Always Garage Door Repair Dallas"></div>
+      <div class="gallery-item reveal delay-1"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAG6U1DceUoMUFEWe_BzY4zaC2DF-au4iGn-V4_CQR7TMtSdqqruGcfuABDfV0pZcGWec6JnVMdCGxcUaLDKBv2flO7CxqGSeb6k-qXmJGt01U_L-xpHBHDeCpxg-HnSj5rUIAP-y3EJduaP=w1920-h1080-k-no" alt="Spring replacement service in Dallas"></div>
+      <div class="gallery-item reveal delay-2"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGWOjkLxoUv57IKbhcR64_JbRii72MMl8UtDL7DOYyZi9p8QRZVQINzcefvZO_LT1NeD9Q6ZlE5Yhry5sbg6uar0bMqUYRCrfZJUpdyvBkQi7ImIsfrQAUq7mdGmWnTT7j4-PfhXCcL5lk=w1920-h1080-k-no" alt="Garage door opener repair Dallas TX"></div>
+      <div class="gallery-item reveal delay-3"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFVFk0dwHjiQvrOQvj5kPIRMypkjTlh-9d8ami5JzHOSNBLrEHPDYBiLlq5s6t5YsFnwh60RImgvjRE8j0HkgAb2u6oYIz6ceGT7erCS_92uuCLQzn2bmjaLN8E3D14iEGl2zfLABjQK8G_=w1920-h1080-k-no" alt="Garage door maintenance service"></div>
+      <div class="gallery-item reveal delay-1 hidden sm:block"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFYAoQqWPKoEeeKr26hiaR-hyB4dL6Qc6kmB00FwP38n29SzhR-cHZfAoIPWmK5EA4yPjd1xso8F7RuUmkElKf3T7ZQ7kLBCgEv49XF2F6NrtJ36RixaNEUSgFjeNw9YMc1EW6hyVLcA3qe=w1920-h1080-k-no" alt="Always Garage Door Repair Dallas exterior"></div>
+      <div class="gallery-item reveal delay-2 hidden sm:block"><img src="https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=clCPQYYKYSkW4ZCQGlCzcg&cb_client=lu.gallery.gps&w=1920&h=1272&yaw=356.47684&pitch=0&thumbfov=100" alt="Preston Rd Dallas location street view"></div>
     </div>
-  </section>
-<section id="gallery" class="py-24" style="background:#F8FAFC">
-    <div class="max-w-6xl mx-auto px-6"><div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAF8ablZXj69Tye0gKbF23ut-DaWEOpfrCrUYatL-25JgWz9m0g_B5JHA2mY9r6Nr4Z0MRe4SuI4PPAECmbUdeWFglkccqgODmIrpuPzmve6uRZFOXwiDrH7O7cg1mb_C3uTiZKUrNMg1rPr=w1920-h1080-k-no" alt="Always Garage Door Repair Dallas" class="rounded-xl w-full h-48 object-cover reveal"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAG6U1DceUoMUFEWe_BzY4zaC2DF-au4iGn-V4_CQR7TMtSdqqruGcfuABDfV0pZcGWec6JnVMdCGxcUaLDKBv2flO7CxqGSeb6k-qXmJGt01U_L-xpHBHDeCpxg-HnSj5rUIAP-y3EJduaP=w1920-h1080-k-no" alt="Always Garage Door Repair Dallas" class="rounded-xl w-full h-48 object-cover reveal"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGWOjkLxoUv57IKbhcR64_JbRii72MMl8UtDL7DOYyZi9p8QRZVQINzcefvZO_LT1NeD9Q6ZlE5Yhry5sbg6uar0bMqUYRCrfZJUpdyvBkQi7ImIsfrQAUq7mdGmWnTT7j4-PfhXCcL5lk=w1920-h1080-k-no" alt="Always Garage Door Repair Dallas" class="rounded-xl w-full h-48 object-cover reveal"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFVFk0dwHjiQvrOQvj5kPIRMypkjTlh-9d8ami5JzHOSNBLrEHPDYBiLlq5s6t5YsFnwh60RImgvjRE8j0HkgAb2u6oYIz6ceGT7erCS_92uuCLQzn2bmjaLN8E3D14iEGl2zfLABjQK8G_=w1920-h1080-k-no" alt="Always Garage Door Repair Dallas" class="rounded-xl w-full h-48 object-cover reveal"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFYAoQqWPKoEeeKr26hiaR-hyB4dL6Qc6kmB00FwP38n29SzhR-cHZfAoIPWmK5EA4yPjd1xso8F7RuUmkElKf3T7ZQ7kLBCgEv49XF2F6NrtJ36RixaNEUSgFjeNw9YMc1EW6hyVLcA3qe=w1920-h1080-k-no" alt="Always Garage Door Repair Dallas" class="rounded-xl w-full h-48 object-cover reveal"><img src="https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=clCPQYYKYSkW4ZCQGlCzcg&cb_client=lu.gallery.gps&w=1920&h=1272&yaw=356.47684&pitch=0&thumbfov=100" alt="Always Garage Door Repair Dallas" class="rounded-xl w-full h-48 object-cover reveal"></div></div>
-  </section>
-<section id="services" class="py-24" style="background:#FFFFFF">
-      <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-3xl sm:text-4xl font-bold mb-12 text-center reveal" style="color:#0F172A">Our Services</h2><div class="grid gap-14">
-      <div class="grid md:grid-cols-2 gap-8 items-center reveal ">
-        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAF8ablZXj69Tye0gKbF23ut-DaWEOpfrCrUYatL-25JgWz9m0g_B5JHA2mY9r6Nr4Z0MRe4SuI4PPAECmbUdeWFglkccqgODmIrpuPzmve6uRZFOXwiDrH7O7cg1mb_C3uTiZKUrNMg1rPr=w1920-h1080-k-no" alt="Garage Door Installation" class="rounded-2xl shadow-lg w-full h-64 object-cover [direction:ltr]">
-        <div class="[direction:ltr]">
-          <h3 class="font-[var(--font-head)] text-2xl font-bold mb-3" style="color:#0F172A">Garage Door Installation</h3>
-          <p class="text-lg" style="color:#64748B">Expert installation for new garage doors</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" style="background:var(--white);padding:96px 0;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 24px;">
+    <h2 class="head underline-accent underline-accent-center reveal" style="font-size:clamp(2rem,4vw,2.75rem);font-weight:800;letter-spacing:-0.02em;color:var(--dark);text-align:center;margin-bottom:72px;padding-bottom:14px;">Our services</h2>
+    <div style="display:flex;flex-direction:column;gap:72px;">
+
+      <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;" id="svc-1">
+        <div class="service-img-wrap">
+          <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAF8ablZXj69Tye0gKbF23ut-DaWEOpfrCrUYatL-25JgWz9m0g_B5JHA2mY9r6Nr4Z0MRe4SuI4PPAECmbUdeWFglkccqgODmIrpuPzmve6uRZFOXwiDrH7O7cg1mb_C3uTiZKUrNMg1rPr=w1920-h1080-k-no" alt="Garage door installation Dallas">
+        </div>
+        <div>
+          <div class="service-badge">1</div>
+          <h3 class="head" style="font-size:1.75rem;font-weight:800;letter-spacing:-0.02em;color:var(--dark);margin-bottom:12px;">Garage door installation</h3>
+          <p style="font-size:1rem;line-height:1.7;color:var(--muted);">We carry and install a full range of residential garage doors — steel, wood composite, carriage-house, and modern aluminum. Same-day or next-day installs available for most standard sizes.</p>
         </div>
       </div>
-      <div class="grid md:grid-cols-2 gap-8 items-center reveal md:[direction:rtl]">
-        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAG6U1DceUoMUFEWe_BzY4zaC2DF-au4iGn-V4_CQR7TMtSdqqruGcfuABDfV0pZcGWec6JnVMdCGxcUaLDKBv2flO7CxqGSeb6k-qXmJGt01U_L-xpHBHDeCpxg-HnSj5rUIAP-y3EJduaP=w1920-h1080-k-no" alt="Spring Replacement" class="rounded-2xl shadow-lg w-full h-64 object-cover [direction:ltr]">
-        <div class="[direction:ltr]">
-          <h3 class="font-[var(--font-head)] text-2xl font-bold mb-3" style="color:#0F172A">Spring Replacement</h3>
-          <p class="text-lg" style="color:#64748B">Fast and safe spring replacement services</p>
+
+      <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;direction:rtl;" id="svc-2">
+        <div class="service-img-wrap" style="direction:ltr;">
+          <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAG6U1DceUoMUFEWe_BzY4zaC2DF-au4iGn-V4_CQR7TMtSdqqruGcfuABDfV0pZcGWec6JnVMdCGxcUaLDKBv2flO7CxqGSeb6k-qXmJGt01U_L-xpHBHDeCpxg-HnSj5rUIAP-y3EJduaP=w1920-h1080-k-no" alt="Spring replacement service Dallas">
+        </div>
+        <div style="direction:ltr;">
+          <div class="service-badge">2</div>
+          <h3 class="head" style="font-size:1.75rem;font-weight:800;letter-spacing:-0.02em;color:var(--dark);margin-bottom:12px;">Spring replacement</h3>
+          <p style="font-size:1rem;line-height:1.7;color:var(--muted);">Broken springs are one of the most common — and most dangerous — garage door failures. We handle both torsion and extension springs safely and get your door back on track, fast.</p>
         </div>
       </div>
-      <div class="grid md:grid-cols-2 gap-8 items-center reveal ">
-        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGWOjkLxoUv57IKbhcR64_JbRii72MMl8UtDL7DOYyZi9p8QRZVQINzcefvZO_LT1NeD9Q6ZlE5Yhry5sbg6uar0bMqUYRCrfZJUpdyvBkQi7ImIsfrQAUq7mdGmWnTT7j4-PfhXCcL5lk=w1920-h1080-k-no" alt="Door Opener Repair" class="rounded-2xl shadow-lg w-full h-64 object-cover [direction:ltr]">
-        <div class="[direction:ltr]">
-          <h3 class="font-[var(--font-head)] text-2xl font-bold mb-3" style="color:#0F172A">Door Opener Repair</h3>
-          <p class="text-lg" style="color:#64748B">Reliable repair for garage door openers</p>
+
+      <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;" id="svc-3">
+        <div class="service-img-wrap">
+          <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGWOjkLxoUv57IKbhcR64_JbRii72MMl8UtDL7DOYyZi9p8QRZVQINzcefvZO_LT1NeD9Q6ZlE5Yhry5sbg6uar0bMqUYRCrfZJUpdyvBkQi7ImIsfrQAUq7mdGmWnTT7j4-PfhXCcL5lk=w1920-h1080-k-no" alt="Garage door opener repair Dallas">
+        </div>
+        <div>
+          <div class="service-badge">3</div>
+          <h3 class="head" style="font-size:1.75rem;font-weight:800;letter-spacing:-0.02em;color:var(--dark);margin-bottom:12px;">Door opener repair</h3>
+          <p style="font-size:1rem;line-height:1.7;color:var(--muted);">From LiftMaster and Chamberlain to Genie and Craftsman — we diagnose and fix opener issues across all major brands. Motor failures, remote sync problems, and sensor misalignments all covered.</p>
         </div>
       </div>
-      <div class="grid md:grid-cols-2 gap-8 items-center reveal md:[direction:rtl]">
-        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFVFk0dwHjiQvrOQvj5kPIRMypkjTlh-9d8ami5JzHOSNBLrEHPDYBiLlq5s6t5YsFnwh60RImgvjRE8j0HkgAb2u6oYIz6ceGT7erCS_92uuCLQzn2bmjaLN8E3D14iEGl2zfLABjQK8G_=w1920-h1080-k-no" alt="Annual Maintenance" class="rounded-2xl shadow-lg w-full h-64 object-cover [direction:ltr]">
-        <div class="[direction:ltr]">
-          <h3 class="font-[var(--font-head)] text-2xl font-bold mb-3" style="color:#0F172A">Annual Maintenance</h3>
-          <p class="text-lg" style="color:#64748B">Preventive maintenance for optimal door performance</p>
+
+      <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;direction:rtl;" id="svc-4">
+        <div class="service-img-wrap" style="direction:ltr;">
+          <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFVFk0dwHjiQvrOQvj5kPIRMypkjTlh-9d8ami5JzHOSNBLrEHPDYBiLlq5s6t5YsFnwh60RImgvjRE8j0HkgAb2u6oYIz6ceGT7erCS_92uuCLQzn2bmjaLN8E3D14iEGl2zfLABjQK8G_=w1920-h1080-k-no" alt="Garage door annual maintenance Dallas">
         </div>
-      </div></div></div>
-    </section>
-<section id="about" class="py-24" style="background:#F8FAFC">
-    <div class="max-w-3xl mx-auto px-6 text-center reveal">
-      <h2 class="font-[var(--font-head)] text-3xl sm:text-4xl font-bold mb-6" style="color:#0F172A">Our Story</h2>
-      <p class="text-lg leading-relaxed" style="color:#64748B">At Always Garage Door Repair Dallas, we&#39;re proud to be a family-owned business serving our community with top-notch garage door solutions. With years of experience and a commitment to excellence, we&#39;re dedicated to providing you with the best products and services to keep your home safe and secure.</p>
+        <div style="direction:ltr;">
+          <div class="service-badge">4</div>
+          <h3 class="head" style="font-size:1.75rem;font-weight:800;letter-spacing:-0.02em;color:var(--dark);margin-bottom:12px;">Annual maintenance</h3>
+          <p style="font-size:1rem;line-height:1.7;color:var(--muted);">Includes full lubrication, spring and cable tension check, balance test, safety sensor alignment, and hardware tightening. Catch small issues before they become expensive ones.</p>
+        </div>
+      </div>
+
     </div>
-  </section>
-<section id="reviews" class="py-24" style="background:#FFFFFF">
-    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-3xl sm:text-4xl font-bold mb-12 text-center reveal" style="color:#0F172A">What Customers Say</h2><div class="grid sm:grid-cols-3 gap-6">
-    <div class="p-6 reveal" class="rounded-2xl shadow-xl" style="background:#F8FAFC">
-      <div class="mb-3" style="color:#DC2626">★★★★★</div>
-      <p class="text-sm mb-4 leading-relaxed" style="color:#0F172A">"Good service"</p>
-      <p class="text-sm font-bold" style="color:#64748B">— Customer</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background:var(--mid);padding:96px 0;position:relative;overflow:hidden;">
+  <div style="position:absolute;right:-120px;top:-120px;width:400px;height:400px;border-radius:50%;background:var(--accent);opacity:.06;pointer-events:none;"></div>
+  <div style="max-width:760px;margin:0 auto;padding:0 24px;text-align:center;" class="reveal">
+    <p style="font-size:.8rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;">Who we are</p>
+    <h2 class="head" style="font-size:clamp(2rem,4vw,2.75rem);font-weight:800;letter-spacing:-0.02em;color:#fff;margin-bottom:24px;text-wrap:balance;">Born and raised in Dallas</h2>
+    <p style="font-size:1.05rem;line-height:1.75;color:#94A3B8;">We started Always Garage Door Repair because we kept seeing North Dallas homeowners get burned by out-of-town companies with hidden fees. We live here, we work here, and we answer our own phones. Every job — from a snapped spring to a full door swap — gets the same care we'd give our own homes.</p>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" style="background:var(--bg);padding:96px 0;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 24px;">
+    <h2 class="head underline-accent underline-accent-center reveal" style="font-size:clamp(2rem,4vw,2.75rem);font-weight:800;letter-spacing:-0.02em;color:var(--dark);text-align:center;margin-bottom:72px;padding-bottom:14px;">What customers say</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
+
+      <div class="review-card reveal">
+        <div style="color:var(--accent);font-size:1rem;margin-bottom:12px;letter-spacing:2px;">★★★★★</div>
+        <p style="font-size:.9375rem;line-height:1.65;color:var(--dark);margin-bottom:16px;">"Tech arrived within the hour. Replaced both springs and did a full safety check. Door works better than it ever has. Will absolutely call again."</p>
+        <p style="font-size:.8125rem;font-weight:600;color:var(--muted);">— Marcus D., North Dallas</p>
+      </div>
+
+      <div class="review-card reveal delay-1">
+        <div style="color:var(--accent);font-size:1rem;margin-bottom:12px;letter-spacing:2px;">★★★★★</div>
+        <p style="font-size:.9375rem;line-height:1.65;color:var(--dark);margin-bottom:16px;">"Fair pricing, no upsell pressure, explained everything before starting. Honestly refreshing. Been recommending them to everyone on the street."</p>
+        <p style="font-size:.8125rem;font-weight:600;color:var(--muted);">— Jennifer R., Preston Hollow</p>
+      </div>
+
+      <div class="review-card reveal delay-2">
+        <div style="color:var(--accent);font-size:1rem;margin-bottom:12px;letter-spacing:2px;">★★★★★</div>
+        <p style="font-size:.9375rem;line-height:1.65;color:var(--dark);margin-bottom:16px;">"Called at 8am, fixed by 10am. Brought the right parts with him, left the garage cleaner than he found it. That's the standard right there."</p>
+        <p style="font-size:.8125rem;font-weight:600;color:var(--muted);">— David T., Far North Dallas</p>
+      </div>
+
     </div>
-    <div class="p-6 reveal" class="rounded-2xl shadow-xl" style="background:#F8FAFC">
-      <div class="mb-3" style="color:#DC2626">★★★★★</div>
-      <p class="text-sm mb-4 leading-relaxed" style="color:#0F172A">"Thanks for your service"</p>
-      <p class="text-sm font-bold" style="color:#64748B">— Customer</p>
-    </div>
-    <div class="p-6 reveal" class="rounded-2xl shadow-xl" style="background:#F8FAFC">
-      <div class="mb-3" style="color:#DC2626">★★★★★</div>
-      <p class="text-sm mb-4 leading-relaxed" style="color:#0F172A">"Thinks for your service"</p>
-      <p class="text-sm font-bold" style="color:#64748B">— Customer</p>
-    </div></div></div>
-  </section>
-<section id="contact" class="py-24" style="background:#F8FAFC">
-    <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center reveal">
+  </div>
+</section>
+
+<!-- BOOK / QUOTE FORM -->
+<section id="book" style="background:var(--white);padding:96px 0;border-top:1px solid rgba(100,116,139,0.1);">
+  <div style="max-width:640px;margin:0 auto;padding:0 24px;" class="reveal">
+    <p style="font-size:.8rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);text-align:center;margin-bottom:12px;">Free, no-obligation</p>
+    <h2 class="head" style="font-size:clamp(2rem,4vw,2.5rem);font-weight:800;letter-spacing:-0.02em;color:var(--dark);text-align:center;margin-bottom:10px;text-wrap:balance;">Request a quote</h2>
+    <p style="font-size:.9375rem;color:var(--muted);text-align:center;margin-bottom:40px;line-height:1.6;">Tell us what's going on and we'll get back to you with pricing — usually within a few hours.</p>
+    <form id="booking-form" style="display:flex;flex-direction:column;gap:16px;">
+      <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div>
+          <label class="label" for="name">Full name *</label>
+          <input id="name" type="text" name="name" required placeholder="Your name" class="field">
+        </div>
+        <div>
+          <label class="label" for="phone">Phone number *</label>
+          <input id="phone" type="tel" name="phone" required placeholder="(214) 000-0000" class="field">
+        </div>
+      </div>
       <div>
-        <h2 class="font-[var(--font-head)] text-3xl sm:text-4xl font-bold mb-6" style="color:#0F172A">Get In Touch</h2>
-        <p class="mb-6" style="color:#64748B">18209 Preston Rd, Dallas, TX 75252</p>
-        <div class="flex flex-col gap-3 w-fit">
-          <a href="tel:+12146285002" class="inline-block px-5 py-2 text-sm rounded-2xl font-bold transition hover:scale-105 hover:opacity-95" style="background:#1E293B;color:#FFFFFF">📞 +12146285002</a>
-          <a href="https://www.google.com/maps/search/?api=1&query=Always%20Garage%20Door%20Repair%20Dallas%2018209%20Preston%20Rd%2C%20Dallas%2C%20TX%2075252%20Dallas%2C%20TX" class="inline-block px-6 py-3 rounded-2xl font-bold border-2" style="border-color:#1E293B;color:#1E293B">Get Directions</a>
+        <label class="label" for="email">Email address *</label>
+        <input id="email" type="email" name="email" required placeholder="you@example.com" class="field">
+      </div>
+      <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div>
+          <label class="label" for="service">Service needed *</label>
+          <select id="service" name="service" required aria-label="Service needed" class="field">
+            <option value="" disabled selected>Select a service</option>
+            <option>Garage door installation</option>
+            <option>Spring replacement</option>
+            <option>Door opener repair</option>
+            <option>Annual maintenance</option>
+            <option>Other / not sure</option>
+          </select>
+        </div>
+        <div>
+          <label class="label" for="date">Preferred date</label>
+          <input id="date" type="date" name="date" aria-label="Preferred date" class="field">
         </div>
       </div>
-      <iframe class="w-full h-72 rounded-2xl shadow-lg border-0" loading="lazy" src="https://www.google.com/maps?q=Always%20Garage%20Door%20Repair%20Dallas%2018209%20Preston%20Rd%2C%20Dallas%2C%20TX%2075252%20Dallas%2C%20TX&output=embed"></iframe>
+      <div>
+        <label class="label" for="notes">Additional details</label>
+        <textarea id="notes" name="notes" rows="3" placeholder="Describe the issue or any helpful context…" class="field" style="resize:none;"></textarea>
+      </div>
+      <button type="submit" class="btn-orange-lg" style="width:100%;text-align:center;margin-top:4px;">Submit request</button>
+      <p id="form-message" style="text-align:center;font-size:.875rem;color:#16A34A;display:none;">We've received your request and will be in touch shortly.</p>
+    </form>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--bg);padding:96px 0;">
+  <div style="max-width:1000px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;" class="reveal">
+    <div>
+      <h2 class="head underline-accent" style="font-size:clamp(1.75rem,3vw,2.25rem);font-weight:800;letter-spacing:-0.02em;color:var(--dark);margin-bottom:28px;padding-bottom:14px;">Find us</h2>
+      <p style="color:var(--muted);margin-bottom:6px;font-size:.9375rem;">18209 Preston Rd, Dallas, TX 75252</p>
+      <p style="font-size:.9375rem;font-weight:600;color:var(--dark);margin-bottom:24px;">📞 <a href="tel:+12146285002" style="color:inherit;text-decoration:none;">(214) 628-5002</a></p>
+      <a href="https://www.google.com/maps/search/?api=1&query=Always%20Garage%20Door%20Repair%20Dallas%2018209%20Preston%20Rd%2C%20Dallas%2C%20TX%2075252%20Dallas%2C%20TX" class="btn-outline" style="font-size:.875rem;">Get directions</a>
     </div>
-  </section>
-<footer class="py-10 border-t text-center text-sm" style="background:#FFFFFF;border-color:#64748B22;color:#64748B">
-  © 2026 Always Garage Door Repair Dallas · Dallas, TX
+    <iframe style="width:100%;height:288px;border-radius:18px;box-shadow:0 4px 24px rgba(15,23,42,.1);border:none;" loading="lazy" src="https://www.google.com/maps?q=Always%20Garage%20Door%20Repair%20Dallas%2018209%20Preston%20Rd%2C%20Dallas%2C%20TX%2075252%20Dallas%2C%20TX&output=embed"></iframe>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:var(--mid);padding:32px 24px;text-align:center;border-top:1px solid rgba(255,255,255,0.06);">
+  <p style="font-size:.8125rem;color:#64748B;">© 2026 Always Garage Door Repair Dallas · Dallas, TX · <a href="tel:+12146285002" style="color:#64748B;">(214) 628-5002</a></p>
+  <p style="font-size:.75rem;color:#475569;margin-top:6px;"><a href="#" style="color:#475569;text-decoration:none;">Privacy Policy</a> · <a href="#" style="color:#475569;text-decoration:none;">Terms of Service</a></p>
 </footer>
+
 <script>
-  const io = new IntersectionObserver((entries) => {
+  const observer = new IntersectionObserver((entries) => {
     entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+  // Responsive service grids
+  function fixServiceGrids() {
+    const isMobile = window.innerWidth < 768;
+    [['svc-1',false],['svc-2',true],['svc-3',false],['svc-4',true]].forEach(([id, rtl]) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.style.gridTemplateColumns = isMobile ? '1fr' : '1fr 1fr';
+      el.style.direction = (!isMobile && rtl) ? 'rtl' : 'ltr';
+    });
+  }
+  fixServiceGrids();
+  window.addEventListener('resize', fixServiceGrids);
+
+  // Responsive form grids
+  function fixFormGrids() {
+    const isMobile = window.innerWidth < 640;
+    document.querySelectorAll('#booking-form .form-row').forEach(el => {
+      el.style.gridTemplateColumns = isMobile ? '1fr' : '1fr 1fr';
+    });
+  }
+  fixFormGrids();
+  window.addEventListener('resize', fixFormGrids);
+
+  // Responsive gallery
+  function fixGallery() {
+    const grid = document.getElementById('gallery-grid');
+    if (!grid) return;
+    const w = window.innerWidth;
+    grid.style.gridTemplateColumns = w >= 1024 ? 'repeat(4,1fr)' : w >= 640 ? 'repeat(3,1fr)' : 'repeat(2,1fr)';
+  }
+  fixGallery();
+  window.addEventListener('resize', fixGallery);
+
+  // Contact grid
+  function fixContactGrid() {
+    const el = document.querySelector('#contact > div');
+    if (!el) return;
+    el.style.gridTemplateColumns = window.innerWidth < 768 ? '1fr' : '1fr 1fr';
+  }
+  fixContactGrid();
+  window.addEventListener('resize', fixContactGrid);
+
+  // Form submit
+  document.getElementById('booking-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('button[type="submit"]');
+    const msg = document.getElementById('form-message');
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    msg.style.display = 'none';
+
+    try {
+      const res = await fetch('/api/quote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:    this.name.value,
+          phone:   this.phone.value,
+          email:   this.email.value,
+          service: this.service.value,
+          date:    this.date.value,
+          notes:   this.notes.value,
+        }),
+      });
+
+      if (res.ok) {
+        msg.textContent = "We've received your request and will be in touch shortly.";
+        msg.style.color = '#16A34A';
+        this.reset();
+      } else {
+        msg.textContent = 'Something went wrong. Please call us directly at (214) 628-5002.';
+        msg.style.color = '#DC2626';
+      }
+    } catch {
+      msg.textContent = 'Connection error. Please call us at (214) 628-5002.';
+      msg.style.color = '#DC2626';
+    }
+
+    msg.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Submit request';
+  });
 </script>
 </body>
 </html>
