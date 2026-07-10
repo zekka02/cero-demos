@@ -10,100 +10,228 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root { --font-head: 'Lexend', sans-serif; --font-body: 'Source Sans 3', sans-serif; }
-  body { font-family: var(--font-body); background:#F0FDF4; color:#14532D; }
-  .font-\[var\(--font-head\)\] { font-family: var(--font-head); }
+  body { font-family: var(--font-body); background:#F0FDF4; color:#14532D; line-height: 1.6; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+  .font-\[var\(--font-head\)\] { font-family: var(--font-head); letter-spacing: -0.02em; }
+  html { scroll-behavior: smooth; }
+
+  /* Soft, layered depth shadow — reads more premium than Tailwind's heavy shadow-2xl. */
+  .shadow-soft { box-shadow: 0 24px 60px -18px #14532D2b, 0 8px 24px -12px #14532D17; }
+
+  /* Reveal-on-scroll (transform/opacity only → no layout shift, recorder-safe) */
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
-  html { scroll-behavior: smooth; }
+
+  /* Micro-interactions */
+  .btn-lift { transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease; }
+  .btn-lift:hover { transform: translateY(-2px); box-shadow: 0 12px 28px #14532D1f; }
+  .card-lift { transition: transform .25s ease, box-shadow .25s ease; }
+  .card-lift:hover { transform: translateY(-4px); box-shadow: 0 18px 40px #14532D1a; }
+  .img-zoom { overflow: hidden; }
+  .img-zoom img { transition: transform .5s ease; will-change: transform; }
+  .img-zoom:hover img { transform: scale(1.05); }
+
+  /* Scroll-aware nav */
+  #site-nav { transition: box-shadow .25s ease; }
+  #site-nav.scrolled { box-shadow: 0 6px 24px #14532D14; }
+
+  /* Animated nav-link underline */
+  .nav-link { position: relative; }
+  .nav-link::after { content:''; position:absolute; left:0; bottom:-4px; height:2px; width:0; background:#15803D; transition: width .2s ease; }
+  .nav-link:hover::after { width:100%; }
+
+  /* FAQ accordion */
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+  .faq-chev { transition: transform .2s ease; }
+  details[open] .faq-chev { transform: rotate(180deg); }
+
+  /* Focus visibility (keyboard nav) */
+  a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid #15803D; outline-offset: 3px; border-radius: 6px; }
+
+  /* Respect reduced motion — kill all movement, keep everything visible */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .btn-lift, .card-lift, .img-zoom img, #site-nav, .nav-link::after, .faq-chev { transition: none !important; }
+    .btn-lift:hover, .card-lift:hover { transform: none !important; }
+    .img-zoom:hover img { transform: none !important; }
+  }
 </style>
 </head>
 <body>
-<nav class="sticky top-0 z-50 backdrop-blur-md border-b" style="background:#F0FDF4cc;border-color:#64748B33">
-  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between"><span class="font-[var(--font-head)] text-xl font-bold" style="color:#14532D">Garage Door Repair Gurus</span><a href="tel:+19712985069" class="inline-block px-5 py-2 rounded-full text-sm font-bold" style="background:#15803D;color:#FFFFFF">📞 Call Now</a></div>
+<nav id="site-nav" class="sticky top-0 z-50 backdrop-blur-md border-b" style="background:#F0FDF4cc;border-color:#64748B33">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between"><span class="font-[var(--font-head)] text-xl font-bold" style="color:#14532D">Garage Door Repair Gurus</span><a href="tel:+19712985069" class="btn-lift inline-flex items-center gap-1.5 px-5 py-2 rounded-full text-sm font-bold" style="background:#15803D;color:#FFFFFF"><svg class="w-4 h-4" fill="none" stroke="#FFFFFF" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Call Now</a></div>
 </nav>
 <section class="relative min-h-screen flex items-center" style="background:#F0FDF4">
-      <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAHEJQtie231jSef6i9TFkUxzFJ9VAymIZdfnc1i6GQZhMamrJ4VHA8uxkQ82Vci9H7ll4hgbGTHQ9b2HJMMoK045_AUzHMbMqGICXAF39zXONj7AeyxplnXh2gokzcVcQvhpxJp=w1600-h1200-k-no" alt="" class="absolute inset-0 w-full h-full object-cover opacity-30">
-      <div class="absolute inset-0" style="background:linear-gradient(180deg, #F0FDF4cc, #F0FDF4f2)"></div>
+      <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAHEJQtie231jSef6i9TFkUxzFJ9VAymIZdfnc1i6GQZhMamrJ4VHA8uxkQ82Vci9H7ll4hgbGTHQ9b2HJMMoK045_AUzHMbMqGICXAF39zXONj7AeyxplnXh2gokzcVcQvhpxJp=w1600-h1200-k-no" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.55]">
+      <div class="absolute inset-0" style="background:radial-gradient(110% 110% at 50% 42%, #F0FDF4f2 0%, #F0FDF4e0 44%, #F0FDF499 100%)"></div>
       <div class="relative z-10 max-w-5xl mx-auto px-6 py-32 text-center reveal">
-        <p class="uppercase tracking-[0.2em] text-sm font-bold mb-4" style="color:#15803D">Door supplier · USA</p><h1 class="font-[var(--font-head)] text-5xl sm:text-7xl font-bold leading-[1.05] mb-6" style="color:#14532D">Guaranteed Garage Door Repairs</h1>
-        <p class="text-lg sm:text-xl mb-10 max-w-2xl mx-auto" style="color:#64748B">Warrantied workmanship and quality parts for a smoother, safer operation</p><div class="flex flex-wrap gap-4 justify-center"><a href="tel:+19712985069" class="inline-block px-8 py-4 rounded-full font-bold text-lg transition hover:scale-105" style="background:#15803D;color:#FFFFFF">📞 Call Now</a><a href="#contact" class="inline-block px-8 py-4 rounded-full font-bold text-lg border-2 transition hover:scale-105" style="border-color:#15803D;color:#15803D">Get a Free Quote</a></div>
+        <p class="uppercase tracking-[0.2em] text-sm font-bold mb-5" style="color:#15803D">Door supplier · Salem, OR</p><h1 class="font-[var(--font-head)] text-5xl sm:text-7xl font-bold leading-[1.05] mb-7" style="color:#14532D">Guaranteed Garage Door Repairs</h1>
+        <p class="text-lg sm:text-xl mb-10 max-w-2xl mx-auto" style="color:#64748B">Warrantied workmanship and quality parts for reliable door operation in Salem, OR</p><div class="flex flex-wrap gap-4 justify-center"><a href="tel:+19712985069" class="btn-lift inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-lg" style="background:#15803D;color:#FFFFFF"><svg class="w-5 h-5" fill="none" stroke="#FFFFFF" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Call Now</a><a href="#contact" class="btn-lift inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-lg border-2" style="border-color:#15803D;color:#15803D">Get a Free Quote</a></div><div class="flex flex-wrap gap-2 mt-8 justify-center"><span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold" style="background:#15803D14;color:#14532D"><span style="color:#A16207">★★★★★</span> 4.8</span><span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold" style="background:#15803D14;color:#14532D"><svg class="w-4 h-4" fill="none" stroke="#15803D" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Salem, OR</span><span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold" style="background:#15803D14;color:#14532D"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#15803D" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Free estimates</span></div>
       </div>
     </section>
-<section class="py-6 border-y" style="background:#FFFFFF;border-color:#64748B22">
-    <div class="max-w-5xl mx-auto px-6 flex flex-wrap items-center justify-center gap-8 text-sm font-bold">
-      <span style="color:#14532D">★ 4.8 Rating</span>
-      <span style="color:#14532D">Trusted by hundreds in USA</span>
-      <span style="color:#14532D">📍 USA</span>
-    </div>
+<section class="py-8 border-y" style="background:#FFFFFF;border-color:#64748B22">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6"><div class="flex items-center gap-2 justify-center reveal">
+      <span style="color:#A16207;letter-spacing:1px">★★★★★</span>
+      <span class="font-semibold text-sm sm:text-base" style="color:#14532D">4.8 on Google</span>
+    </div><div class="flex items-center gap-2.5 justify-center reveal [transition-delay:60ms]">
+      <span class="inline-flex items-center justify-center w-9 h-9 rounded-full shrink-0" style="background:#A162071a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="font-semibold text-sm sm:text-base" style="color:#14532D">Free Estimates</span>
+    </div><div class="flex items-center gap-2.5 justify-center reveal [transition-delay:120ms]">
+      <span class="inline-flex items-center justify-center w-9 h-9 rounded-full shrink-0" style="background:#A162071a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="font-semibold text-sm sm:text-base" style="color:#14532D">Locally Owned</span>
+    </div><div class="flex items-center gap-2.5 justify-center reveal [transition-delay:180ms]">
+      <span class="inline-flex items-center justify-center w-9 h-9 rounded-full shrink-0" style="background:#A162071a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="font-semibold text-sm sm:text-base" style="color:#14532D">Fast Response</span>
+    </div></div>
   </section>
-<section id="services" class="py-24" style="background:#F0FDF4">
-    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-3xl sm:text-4xl font-bold mb-12 text-center reveal" style="color:#14532D">Our Services</h2>
+<section id="services" class="py-28 sm:py-32" style="background:#F0FDF4">
+    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold text-center reveal mb-12" style="color:#14532D">Our Services</h2>
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    <div class="p-6 reveal" class="rounded-2xl shadow-sm" style="background:#FFFFFF">
-      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#A162071a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+    <div class="p-6 reveal [transition-delay:0ms]" class="rounded-2xl card-lift shadow-sm" style="background:#FFFFFF">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#A162071a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
       <h3 class="font-bold text-lg mb-2" style="color:#14532D">Spring Repair</h3>
       <p class="text-sm" style="color:#64748B">Fast and reliable torsion spring replacement</p>
     </div>
-    <div class="p-6 reveal" class="rounded-2xl shadow-sm" style="background:#FFFFFF">
-      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#A162071a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+    <div class="p-6 reveal [transition-delay:70ms]" class="rounded-2xl card-lift shadow-sm" style="background:#FFFFFF">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#A162071a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
       <h3 class="font-bold text-lg mb-2" style="color:#14532D">Door Adjustment</h3>
-      <p class="text-sm" style="color:#64748B">Precision adjustments for smoother operation</p>
+      <p class="text-sm" style="color:#64748B">Precise adjustments for smooth door operation</p>
     </div>
-    <div class="p-6 reveal" class="rounded-2xl shadow-sm" style="background:#FFFFFF">
-      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#A162071a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+    <div class="p-6 reveal [transition-delay:140ms]" class="rounded-2xl card-lift shadow-sm" style="background:#FFFFFF">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#A162071a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
       <h3 class="font-bold text-lg mb-2" style="color:#14532D">Cable Repair</h3>
       <p class="text-sm" style="color:#64748B">Secure and durable cable replacement and repair</p>
     </div>
-    <div class="p-6 reveal" class="rounded-2xl shadow-sm" style="background:#FFFFFF">
-      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#A162071a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
-      <h3 class="font-bold text-lg mb-2" style="color:#14532D">System Inspection</h3>
-      <p class="text-sm" style="color:#64748B">Comprehensive inspection for optimal performance</p>
+    <div class="p-6 reveal [transition-delay:210ms]" class="rounded-2xl card-lift shadow-sm" style="background:#FFFFFF">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#A162071a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+      <h3 class="font-bold text-lg mb-2" style="color:#14532D">Maintenance</h3>
+      <p class="text-sm" style="color:#64748B">Regular maintenance for optimal door performance</p>
     </div></div>
     </div>
   </section>
-<section id="reviews" class="py-24" style="background:#FFFFFF">
-    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-3xl sm:text-4xl font-bold mb-12 text-center reveal" style="color:#14532D">What Customers Say</h2><div class="grid sm:grid-cols-3 gap-6">
-    <div class="p-6 reveal flex flex-col gap-3" class="rounded-2xl shadow-sm" style="background:#F0FDF4">
+<section id="reviews" class="py-28 sm:py-32" style="background:#FFFFFF">
+    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold mb-12 text-center reveal" style="color:#14532D">What Customers Say</h2><div class="grid sm:grid-cols-3 gap-6">
+    <div class="p-6 reveal flex flex-col gap-3 [transition-delay:0ms]" class="rounded-2xl card-lift shadow-sm" style="background:#F0FDF4">
       <div class="flex items-start justify-between"><div class="font-[var(--font-head)] text-5xl leading-none select-none" aria-hidden="true" style="color:#15803D;opacity:.35">“</div><div class="text-sm pt-2" style="color:#A16207;letter-spacing:2px">★★★★★<span style="opacity:.25"></span></div></div>
       <p class="text-sm leading-relaxed flex-1" style="color:#14532D">One of the greatest people I have ever had the pleasure of working with was Alan from this organization, and I would unquestionably suggest them to anyone with garage door problems.</p>
-      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#A162071a;color:#A16207">✓ Google review</span>
+      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#A162071a;color:#A16207"><svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Google review</span>
     </div>
-    <div class="p-6 reveal flex flex-col gap-3" class="rounded-2xl shadow-sm" style="background:#F0FDF4">
+    <div class="p-6 reveal flex flex-col gap-3 [transition-delay:70ms]" class="rounded-2xl card-lift shadow-sm" style="background:#F0FDF4">
       <div class="flex items-start justify-between"><div class="font-[var(--font-head)] text-5xl leading-none select-none" aria-hidden="true" style="color:#15803D;opacity:.35">“</div><div class="text-sm pt-2" style="color:#A16207;letter-spacing:2px">★★★★★<span style="opacity:.25"></span></div></div>
       <p class="text-sm leading-relaxed flex-1" style="color:#14532D">Our garage door&#39;s torsion spring broke last night, causing the door to fall and the cable to come loose. I started phoning about this afternoon to see if anyone could fix the door.</p>
-      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#A162071a;color:#A16207">✓ Google review</span>
+      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#A162071a;color:#A16207"><svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Google review</span>
     </div>
-    <div class="p-6 reveal flex flex-col gap-3" class="rounded-2xl shadow-sm" style="background:#F0FDF4">
+    <div class="p-6 reveal flex flex-col gap-3 [transition-delay:140ms]" class="rounded-2xl card-lift shadow-sm" style="background:#F0FDF4">
       <div class="flex items-start justify-between"><div class="font-[var(--font-head)] text-5xl leading-none select-none" aria-hidden="true" style="color:#15803D;opacity:.35">“</div><div class="text-sm pt-2" style="color:#A16207;letter-spacing:2px">★★★★★<span style="opacity:.25"></span></div></div>
       <p class="text-sm leading-relaxed flex-1" style="color:#14532D">I noticed my garage door was moving much slower than usual. The technician inspected the entire system, made the necessary adjustments, and now it operates faster and smoother than before.</p>
-      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#A162071a;color:#A16207">✓ Google review</span>
+      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#A162071a;color:#A16207"><svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Google review</span>
     </div></div></div>
   </section>
-<section id="gallery" class="py-24" style="background:#F0FDF4">
-      <div class="max-w-7xl mx-auto px-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGBBQttU00pkn1wsIRIjfSeKIsHMb7mD1FORV0MMcuaU50qgAUXcz91AdcDVI_fLoUeke-pgZ0tcwjyAKFU0Jr9azsfX4S93As1KoOLraBJs_eJ5L7jhuJEqaNE9lu-QOvBKFWS=w1600-h1200-k-no" alt="Garage Door Repair Gurus" class="rounded-2xl w-full h-72 object-cover reveal"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAF39uCigQ-dCt3M410JvijBGZTCQMh12yr5cJofgKmYZRWGIcw5SP29QxJA7CXeuCY4kZnHAUzOY3cC4h_zkeb9kz7RyG3PafHk6ZRXFzMV6kyoHDoB_POObEXH4A4x6hNPrNBzTA=w1600-h1200-k-no" alt="Garage Door Repair Gurus" class="rounded-2xl w-full h-72 object-cover reveal"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGuINEME5OHS3BGUKG26JUKyNqJJvksIqAIgDbi7yhrgQQFqIN6K59mqC6WrE7E7AOvhCElYbBzh-UZZdGRUz805Zm-hVtAVc0Ez43BB-u6USaqOPE-I5FrW1QSmbSVpugs6gPv=w1600-h1200-k-no" alt="Garage Door Repair Gurus" class="rounded-2xl w-full h-72 object-cover reveal"></div>
+<section id="gallery" class="py-28 sm:py-32" style="background:#F0FDF4">
+      <div class="max-w-7xl mx-auto px-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5"><div class="img-zoom rounded-2xl reveal [transition-delay:0ms]"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGBBQttU00pkn1wsIRIjfSeKIsHMb7mD1FORV0MMcuaU50qgAUXcz91AdcDVI_fLoUeke-pgZ0tcwjyAKFU0Jr9azsfX4S93As1KoOLraBJs_eJ5L7jhuJEqaNE9lu-QOvBKFWS=w1600-h1200-k-no" alt="Garage Door Repair Gurus" class="w-full h-72 object-cover"></div><div class="img-zoom rounded-2xl reveal [transition-delay:80ms]"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAF39uCigQ-dCt3M410JvijBGZTCQMh12yr5cJofgKmYZRWGIcw5SP29QxJA7CXeuCY4kZnHAUzOY3cC4h_zkeb9kz7RyG3PafHk6ZRXFzMV6kyoHDoB_POObEXH4A4x6hNPrNBzTA=w1600-h1200-k-no" alt="Garage Door Repair Gurus" class="w-full h-72 object-cover"></div><div class="img-zoom rounded-2xl reveal [transition-delay:160ms]"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGuINEME5OHS3BGUKG26JUKyNqJJvksIqAIgDbi7yhrgQQFqIN6K59mqC6WrE7E7AOvhCElYbBzh-UZZdGRUz805Zm-hVtAVc0Ez43BB-u6USaqOPE-I5FrW1QSmbSVpugs6gPv=w1600-h1200-k-no" alt="Garage Door Repair Gurus" class="w-full h-72 object-cover"></div></div>
     </section>
-<section id="about" class="py-24" style="background:#FFFFFF">
+<section id="about" class="py-28 sm:py-32" style="background:#FFFFFF">
       <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-        <div class="reveal"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGBBQttU00pkn1wsIRIjfSeKIsHMb7mD1FORV0MMcuaU50qgAUXcz91AdcDVI_fLoUeke-pgZ0tcwjyAKFU0Jr9azsfX4S93As1KoOLraBJs_eJ5L7jhuJEqaNE9lu-QOvBKFWS=w1600-h1200-k-no" alt="Garage Door Repair Gurus" class="rounded-3xl shadow-xl w-full h-[380px] object-cover"></div>
+        <div class="reveal img-zoom rounded-3xl shadow-soft"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGBBQttU00pkn1wsIRIjfSeKIsHMb7mD1FORV0MMcuaU50qgAUXcz91AdcDVI_fLoUeke-pgZ0tcwjyAKFU0Jr9azsfX4S93As1KoOLraBJs_eJ5L7jhuJEqaNE9lu-QOvBKFWS=w1600-h1200-k-no" alt="Garage Door Repair Gurus" class="w-full h-[380px] object-cover"></div>
         <div class="reveal">
-          <h2 class="font-[var(--font-head)] text-3xl sm:text-4xl font-bold mb-6" style="color:#14532D">Local Experts</h2>
-          <p class="text-lg leading-relaxed mb-6" style="color:#64748B">At Garage Door Repair Gurus, we understand the importance of a properly functioning garage door. Our team of licensed technicians provides top-notch service, ensuring your door operates efficiently and safely. With our ironclad workmanship guarantee, you can trust that our work will stand the test of time.</p>
+          <h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold mb-6" style="color:#14532D">Our Story</h2>
+          <p class="text-lg leading-relaxed mb-6" style="color:#64748B">At Garage Door Repair Gurus, we pride ourselves on providing top-notch service and ironclad workmanship guarantees to our customers in Salem, OR. We understand the importance of a properly functioning garage door and strive to deliver quality results every time.</p>
           <div class="flex flex-wrap gap-6 text-sm font-bold">
             <div><span class="text-2xl" style="color:#15803D">★ 4.8</span><div style="color:#64748B">Customer rating</div></div>
-            <div><span class="text-2xl" style="color:#15803D">Local</span><div style="color:#64748B">USA</div></div>
+            <div><span class="text-2xl" style="color:#15803D">Local</span><div style="color:#64748B">Salem, OR</div></div>
           </div>
         </div>
       </div>
     </section>
-<section id="contact" class="py-24" style="background:#F0FDF4">
+<section id="why" class="py-28 sm:py-32" style="background:#F0FDF4">
+    <div class="max-w-5xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold text-center reveal mb-12" style="color:#14532D">Why Choose Us</h2>
+      <ul class="grid sm:grid-cols-2 gap-x-10 gap-y-5 max-w-3xl mx-auto">
+    <li class="flex items-start gap-3 reveal [transition-delay:0ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#A162071a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#14532D">Experienced technicians</span>
+    </li>
+    <li class="flex items-start gap-3 reveal [transition-delay:60ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#A162071a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#14532D">Quality parts and materials</span>
+    </li>
+    <li class="flex items-start gap-3 reveal [transition-delay:120ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#A162071a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#14532D">Fast and reliable service</span>
+    </li>
+    <li class="flex items-start gap-3 reveal [transition-delay:180ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#A162071a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#14532D">Competitive pricing</span>
+    </li>
+    <li class="flex items-start gap-3 reveal [transition-delay:240ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#A162071a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#A16207" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#14532D">Exceptional customer service</span>
+    </li></ul>
+    </div>
+  </section>
+<section id="process" class="py-28 sm:py-32" style="background:#FFFFFF">
+    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold text-center reveal mb-12" style="color:#14532D">How It Works</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="relative p-6 reveal [transition-delay:0ms]" class="rounded-2xl card-lift shadow-sm" style="background:#F0FDF4">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-full font-[var(--font-head)] text-lg font-bold" style="background:#15803D;color:#FFFFFF">1</div>
+      <p class="uppercase tracking-[0.15em] text-xs font-bold mb-1" style="color:#A16207">Step 1</p>
+      <h3 class="font-bold text-lg mb-2" style="color:#14532D">Schedule Service</h3>
+      <p class="text-sm" style="color:#64748B">Contact us to schedule a repair or maintenance</p>
+    </div>
+    <div class="relative p-6 reveal [transition-delay:70ms]" class="rounded-2xl card-lift shadow-sm" style="background:#F0FDF4">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-full font-[var(--font-head)] text-lg font-bold" style="background:#15803D;color:#FFFFFF">2</div>
+      <p class="uppercase tracking-[0.15em] text-xs font-bold mb-1" style="color:#A16207">Step 2</p>
+      <h3 class="font-bold text-lg mb-2" style="color:#14532D">Technician Dispatch</h3>
+      <p class="text-sm" style="color:#64748B">Our technician will arrive promptly to assess and repair your door</p>
+    </div>
+    <div class="relative p-6 reveal [transition-delay:140ms]" class="rounded-2xl card-lift shadow-sm" style="background:#F0FDF4">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-full font-[var(--font-head)] text-lg font-bold" style="background:#15803D;color:#FFFFFF">3</div>
+      <p class="uppercase tracking-[0.15em] text-xs font-bold mb-1" style="color:#A16207">Step 3</p>
+      <h3 class="font-bold text-lg mb-2" style="color:#14532D">Quality Guarantee</h3>
+      <p class="text-sm" style="color:#64748B">We guarantee our workmanship and parts for your peace of mind</p>
+    </div></div>
+    </div>
+  </section>
+<section id="faq" class="py-28 sm:py-32" style="background:#F0FDF4">
+    <div class="max-w-3xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold text-center reveal mb-8" style="color:#14532D">Common Questions</h2>
+      <div>
+    <details class="reveal border-b py-5" style="border-color:#64748B33">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-lg" style="color:#14532D">
+        <span>How quickly can you respond to a repair request?</span><svg class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="#15803D" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <p class="mt-3 leading-relaxed" style="color:#64748B">We strive to respond promptly to all repair requests, often same-day or next-day service</p>
+    </details>
+    <details class="reveal border-b py-5" style="border-color:#64748B33">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-lg" style="color:#14532D">
+        <span>What types of garage doors do you repair?</span><svg class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="#15803D" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <p class="mt-3 leading-relaxed" style="color:#64748B">We repair all types of garage doors, including residential and commercial</p>
+    </details>
+    <details class="reveal border-b py-5" style="border-color:#64748B33">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-lg" style="color:#14532D">
+        <span>Do you offer maintenance services?</span><svg class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="#15803D" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <p class="mt-3 leading-relaxed" style="color:#64748B">Yes, we offer regular maintenance services to keep your door running smoothly</p>
+    </details></div>
+    </div>
+  </section>
+<section class="relative overflow-hidden" style="background:linear-gradient(135deg, #15803D 0%, #A16207 100%)">
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true" style="background:radial-gradient(60% 80% at 80% 20%, #FFFFFF26 0%, transparent 60%)"></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-6 py-24 sm:py-28 text-center reveal">
+      <h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold mb-4" style="color:#FFFFFF">Ready to Get Started</h2>
+      <p class="text-lg mb-8 max-w-2xl mx-auto" style="color:#FFFFFF;opacity:.9">Contact us today to schedule your garage door repair or maintenance</p>
+      <div class="flex flex-wrap gap-4 justify-center"><a href="tel:+19712985069" class="btn-lift inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-lg" style="background:#FFFFFF;color:#15803D"><svg class="w-5 h-5" fill="none" stroke="#15803D" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Call Now</a><a href="#contact" class="btn-lift inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-lg border-2" style="border-color:#FFFFFF;color:#FFFFFF">Get a Free Quote <svg class="w-5 h-5" fill="none" stroke="#FFFFFF" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </section>
+<section id="contact" class="py-28 sm:py-32" style="background:#FFFFFF">
     <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-start reveal">
       <div>
-      <h2 class="font-[var(--font-head)] text-3xl sm:text-4xl font-bold mb-6" style="color:#14532D">Get In Touch</h2>
-      <p class="mb-6" style="color:#64748B">3000 Market St NE #710, Salem, OR 97301</p>
+      <h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold mb-6" style="color:#14532D">Get In Touch</h2>
+      <p class="mb-6 inline-flex items-start gap-2" style="color:#64748B"><svg class="w-5 h-5" fill="none" stroke="#15803D" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> <span>3000 Market St NE #710, Salem, OR 97301</span></p>
       <div class="flex flex-col gap-3 w-fit">
-        <a href="tel:+19712985069" class="inline-block px-5 py-2 text-sm rounded-full font-bold transition hover:scale-105 hover:opacity-95" style="background:#15803D;color:#FFFFFF">📞 Call +19712985069</a>
+        <a href="tel:+19712985069" class="btn-lift inline-flex items-center gap-2 px-5 py-2 text-sm rounded-full font-bold" style="background:#15803D;color:#FFFFFF">Call +19712985069</a>
         
-        <a href="https://www.google.com/maps/search/?api=1&query=Garage%20Door%20Repair%20Gurus%203000%20Market%20St%20NE%20%23710%2C%20Salem%2C%20OR%2097301%20USA" class="inline-block px-6 py-3 rounded-full font-bold border-2" style="border-color:#15803D;color:#15803D">Get Directions</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Garage%20Door%20Repair%20Gurus%203000%20Market%20St%20NE%20%23710%2C%20Salem%2C%20OR%2097301%20Salem%2C%20OR" class="btn-lift inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold border-2" style="border-color:#15803D;color:#15803D">Get Directions</a>
       </div>
     </div>
       <form class="quote-form flex flex-col gap-3" action="https://api.web3forms.com/submit" method="POST">
@@ -112,22 +240,48 @@
         <input type="hidden" name="from_name" value="Garage Door Repair Gurus website">
         <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
         <h3 class="font-[var(--font-head)] text-xl font-bold" style="color:#14532D">Request a Free Quote</h3>
-        <input name="name" required placeholder="Your name" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#FFFFFF;color:#14532D">
-        <input name="phone" required placeholder="Phone number" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#FFFFFF;color:#14532D">
-        <textarea name="message" rows="3" placeholder="How can we help?" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#FFFFFF;color:#14532D"></textarea>
-        <button type="submit" class="px-6 py-3 rounded-full font-bold" style="background:#15803D;color:#FFFFFF">Get a Free Quote</button>
+        <input name="name" required placeholder="Your name" autocomplete="name" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#F0FDF4;color:#14532D">
+        <input name="phone" type="tel" required placeholder="Phone number" autocomplete="tel" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#F0FDF4;color:#14532D">
+        <textarea name="message" rows="3" placeholder="How can we help?" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#F0FDF4;color:#14532D"></textarea>
+        <button type="submit" class="btn-lift px-6 py-3 rounded-full font-bold" style="background:#15803D;color:#FFFFFF">Get a Free Quote</button>
         <p class="form-status text-sm" style="color:#64748B"></p>
       </form>
     </div>
   </section>
-<footer class="py-10 border-t text-center text-sm" style="background:#FFFFFF;border-color:#64748B22;color:#64748B">
-  © 2026 Garage Door Repair Gurus · USA
+<footer class="pt-14 pb-8 border-t" style="background:#FFFFFF;border-color:#64748B22;color:#64748B">
+  <div class="max-w-6xl mx-auto px-6 grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <div>
+      <div class="font-[var(--font-head)] text-xl font-bold mb-3" style="color:#14532D">Garage Door Repair Gurus</div>
+      <p class="text-sm" style="opacity:.85">3000 Market St NE #710, Salem, OR 97301</p>
+      <p class="text-sm mt-2" style="opacity:.85"><span style="color:#A16207">★</span> 4.8 on Google</p>
+    </div>
+    <div>
+      <div class="font-semibold mb-3" style="color:#14532D">Explore</div>
+      <ul class="space-y-2 text-sm"><li><a href="#services" class="hover:opacity-100 transition-opacity" style="opacity:.85">Services</a></li><li><a href="#reviews" class="hover:opacity-100 transition-opacity" style="opacity:.85">Reviews</a></li><li><a href="#faq" class="hover:opacity-100 transition-opacity" style="opacity:.85">FAQ</a></li><li><a href="#contact" class="hover:opacity-100 transition-opacity" style="opacity:.85">Contact</a></li></ul>
+    </div>
+    <div>
+      <div class="font-semibold mb-3" style="color:#14532D">Get in touch</div>
+      <a href="tel:+19712985069" class="flex items-center gap-2 text-sm mb-2 hover:opacity-100 transition-opacity" style="opacity:.85"><svg class="w-4 h-4" fill="none" stroke="#64748B" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +19712985069</a>
+      <a href="#contact" class="flex items-center gap-2 text-sm mb-2 hover:opacity-100 transition-opacity" style="opacity:.85"><svg class="w-4 h-4" fill="none" stroke="#64748B" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Salem, OR</a>
+    </div>
+  </div>
+  <div class="max-w-6xl mx-auto px-6 mt-10 pt-6 border-t text-center text-sm" style="border-color:#64748B22;opacity:.85">
+    © 2026 Garage Door Repair Gurus · Salem, OR
+  </div>
 </footer>
 <script>
   const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+  // Shadow on the sticky nav once the page has scrolled a touch.
+  const nav = document.getElementById('site-nav');
+  if (nav) {
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
 
   // Submit the quote form via Web3Forms without leaving the page; graceful inline status.
   document.querySelectorAll('.quote-form').forEach((form) => {
