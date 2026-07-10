@@ -10,38 +10,87 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root { --font-head: 'Outfit', sans-serif; --font-body: 'Work Sans', sans-serif; }
-  body { font-family: var(--font-body); background:#F8FAFC; color:#0F172A; }
-  .font-\[var\(--font-head\)\] { font-family: var(--font-head); }
+  body { font-family: var(--font-body); background:#F8FAFC; color:#0F172A; line-height: 1.6; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+  .font-\[var\(--font-head\)\] { font-family: var(--font-head); letter-spacing: -0.02em; }
+  html { scroll-behavior: smooth; }
+
+  /* Soft, layered depth shadow — reads more premium than Tailwind's heavy shadow-2xl. */
+  .shadow-soft { box-shadow: 0 24px 60px -18px #0F172A2b, 0 8px 24px -12px #0F172A17; }
+
+  /* Reveal-on-scroll (transform/opacity only → no layout shift, recorder-safe) */
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
-  html { scroll-behavior: smooth; }
+
+  /* Micro-interactions */
+  .btn-lift { transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease; }
+  .btn-lift:hover { transform: translateY(-2px); box-shadow: 0 12px 28px #0F172A1f; }
+  .card-lift { transition: transform .25s ease, box-shadow .25s ease; }
+  .card-lift:hover { transform: translateY(-4px); box-shadow: 0 18px 40px #0F172A1a; }
+  .img-zoom { overflow: hidden; }
+  .img-zoom img { transition: transform .5s ease; will-change: transform; }
+  .img-zoom:hover img { transform: scale(1.05); }
+
+  /* Scroll-aware nav */
+  #site-nav { transition: box-shadow .25s ease; }
+  #site-nav.scrolled { box-shadow: 0 6px 24px #0F172A14; }
+
+  /* Animated nav-link underline */
+  .nav-link { position: relative; }
+  .nav-link::after { content:''; position:absolute; left:0; bottom:-4px; height:2px; width:0; background:#1E293B; transition: width .2s ease; }
+  .nav-link:hover::after { width:100%; }
+
+  /* FAQ accordion */
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+  .faq-chev { transition: transform .2s ease; }
+  details[open] .faq-chev { transform: rotate(180deg); }
+
+  /* Focus visibility (keyboard nav) */
+  a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid #1E293B; outline-offset: 3px; border-radius: 6px; }
+
+  /* Respect reduced motion — kill all movement, keep everything visible */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .btn-lift, .card-lift, .img-zoom img, #site-nav, .nav-link::after, .faq-chev { transition: none !important; }
+    .btn-lift:hover, .card-lift:hover { transform: none !important; }
+    .img-zoom:hover img { transform: none !important; }
+  }
 </style>
 </head>
 <body>
-<nav class="sticky top-0 z-50 backdrop-blur-md border-b" style="background:#F8FAFCcc;border-color:#64748B33">
-  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between"><span class="font-[var(--font-head)] text-xl font-bold" style="color:#0F172A">Carolina Water Damage Restoration of Charlotte</span><a href="tel:+19803082847" class="text-sm font-bold" style="color:#1E293B">📞 +19803082847</a></div>
+<nav id="site-nav" class="sticky top-0 z-50 backdrop-blur-md border-b" style="background:#F8FAFCcc;border-color:#64748B33">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between"><span class="font-[var(--font-head)] text-xl font-bold" style="color:#0F172A">Carolina Water Damage Restoration of Charlotte</span><a href="tel:+19803082847" class="inline-flex items-center gap-1.5 text-sm font-bold" style="color:#1E293B"><svg class="w-4 h-4" fill="none" stroke="#1E293B" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +19803082847</a></div>
 </nav>
 <section class="relative min-h-screen flex items-center" style="background:#F8FAFC">
-      <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGrcuLxp1sScIO0LxiU-ZTSM8ErF6CCcvQnFHD0XY3rUJxRtohv8rhLhj5-mSR7ofT2jSecGfkT1e_qG-OzEZxA7cspQTj1V2O9LDLAW3jYiNoyjr430mn7R1gQh70qJUZWq-0e=w1600-h1200-k-no" alt="" class="absolute inset-0 w-full h-full object-cover opacity-30">
-      <div class="absolute inset-0" style="background:linear-gradient(180deg, #F8FAFCcc, #F8FAFCf2)"></div>
+      <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGrcuLxp1sScIO0LxiU-ZTSM8ErF6CCcvQnFHD0XY3rUJxRtohv8rhLhj5-mSR7ofT2jSecGfkT1e_qG-OzEZxA7cspQTj1V2O9LDLAW3jYiNoyjr430mn7R1gQh70qJUZWq-0e=w1600-h1200-k-no" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.55]">
+      <div class="absolute inset-0" style="background:radial-gradient(110% 110% at 50% 42%, #F8FAFCf2 0%, #F8FAFCe0 44%, #F8FAFC99 100%)"></div>
       <div class="relative z-10 max-w-5xl mx-auto px-6 py-32 text-center reveal">
-        <p class="uppercase tracking-[0.2em] text-sm font-bold mb-4" style="color:#1E293B">Water damage restoration service · Charlotte, NC</p><h1 class="font-[var(--font-head)] text-5xl sm:text-7xl font-bold leading-[1.05] mb-6" style="color:#0F172A">Water Damage Experts</h1>
-        <p class="text-lg sm:text-xl mb-10 max-w-2xl mx-auto" style="color:#64748B">Decades of experience restoring Charlotte homes and businesses to their original condition, done right the first time</p><div class="flex flex-wrap gap-4 justify-center"><a href="tel:+19803082847" class="inline-block px-8 py-4 rounded-lg font-bold text-lg transition hover:scale-105" style="background:#1E293B;color:#FFFFFF">📞 Call Now</a><a href="#contact" class="inline-block px-8 py-4 rounded-lg font-bold text-lg border-2 transition hover:scale-105" style="border-color:#1E293B;color:#1E293B">Get a Free Quote</a></div>
+        <p class="uppercase tracking-[0.2em] text-sm font-bold mb-5" style="color:#1E293B">Water damage restoration service · Charlotte, NC</p><h1 class="font-[var(--font-head)] text-5xl sm:text-7xl font-bold leading-[1.05] mb-7" style="color:#0F172A">Restored Right The First Time</h1>
+        <p class="text-lg sm:text-xl mb-10 max-w-2xl mx-auto" style="color:#64748B">Experience the difference of expert water damage restoration in Charlotte, NC</p><div class="flex flex-wrap gap-4 justify-center"><a href="tel:+19803082847" class="btn-lift inline-flex items-center gap-2 px-8 py-4 rounded-lg font-bold text-lg" style="background:#1E293B;color:#FFFFFF"><svg class="w-5 h-5" fill="none" stroke="#FFFFFF" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Call Now</a><a href="#contact" class="btn-lift inline-flex items-center gap-2 px-8 py-4 rounded-lg font-bold text-lg border-2" style="border-color:#1E293B;color:#1E293B">Get a Free Quote</a></div><div class="flex flex-wrap gap-2 mt-8 justify-center"><span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold" style="background:#1E293B14;color:#0F172A"><span style="color:#DC2626">★★★★★</span> 4.9</span><span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold" style="background:#1E293B14;color:#0F172A"><svg class="w-4 h-4" fill="none" stroke="#1E293B" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Charlotte, NC</span><span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold" style="background:#1E293B14;color:#0F172A"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#1E293B" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Free estimates</span></div>
       </div>
     </section>
-<section class="py-6 border-y" style="background:#FFFFFF;border-color:#64748B22">
-    <div class="max-w-5xl mx-auto px-6 flex flex-wrap items-center justify-center gap-8 text-sm font-bold">
-      <span style="color:#0F172A">★ 4.9 Rating</span>
-      <span style="color:#0F172A">Trusted by hundreds in Charlotte, NC</span>
-      <span style="color:#0F172A">📍 Charlotte, NC</span>
-    </div>
+<section class="py-8 border-y" style="background:#FFFFFF;border-color:#64748B22">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6"><div class="flex items-center gap-2 justify-center reveal">
+      <span style="color:#DC2626;letter-spacing:1px">★★★★★</span>
+      <span class="font-semibold text-sm sm:text-base" style="color:#0F172A">4.9 on Google</span>
+    </div><div class="flex items-center gap-2.5 justify-center reveal [transition-delay:60ms]">
+      <span class="inline-flex items-center justify-center w-9 h-9 rounded-full shrink-0" style="background:#DC26261a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="font-semibold text-sm sm:text-base" style="color:#0F172A">Fast Response</span>
+    </div><div class="flex items-center gap-2.5 justify-center reveal [transition-delay:120ms]">
+      <span class="inline-flex items-center justify-center w-9 h-9 rounded-full shrink-0" style="background:#DC26261a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="font-semibold text-sm sm:text-base" style="color:#0F172A">Locally Owned</span>
+    </div><div class="flex items-center gap-2.5 justify-center reveal [transition-delay:180ms]">
+      <span class="inline-flex items-center justify-center w-9 h-9 rounded-full shrink-0" style="background:#DC26261a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="font-semibold text-sm sm:text-base" style="color:#0F172A">Satisfaction Guaranteed</span>
+    </div></div>
   </section>
-<section id="about" class="py-24" style="background:#F8FAFC">
+<section id="about" class="py-28 sm:py-32" style="background:#F8FAFC">
       <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-        <div class="reveal"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAF6J34vgkWtm6sRZJxS_a9nBD65Xelm_ybmLiWxe81eZrgB1_4aawptkKJH6mBcDfJYrBimF8aU9-H4RG5spjZ4OfnrB0ZlQO0k0DSzmCIwqdQpXnvYQNF70og2Uw5TSfgdeeipHA=w1600-h1200-k-no" alt="Carolina Water Damage Restoration of Charlotte" class="rounded-3xl shadow-xl w-full h-[380px] object-cover"></div>
+        <div class="reveal img-zoom rounded-3xl shadow-soft"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAF6J34vgkWtm6sRZJxS_a9nBD65Xelm_ybmLiWxe81eZrgB1_4aawptkKJH6mBcDfJYrBimF8aU9-H4RG5spjZ4OfnrB0ZlQO0k0DSzmCIwqdQpXnvYQNF70og2Uw5TSfgdeeipHA=w1600-h1200-k-no" alt="Carolina Water Damage Restoration of Charlotte" class="w-full h-[380px] object-cover"></div>
         <div class="reveal">
-          <h2 class="font-[var(--font-head)] text-3xl sm:text-4xl font-bold mb-6" style="color:#0F172A">Our Story</h2>
-          <p class="text-lg leading-relaxed mb-6" style="color:#64748B">At Carolina Water Damage Restoration of Charlotte, our team of licensed professionals has years of experience in water damage restoration, providing expert craftsmanship to ensure your property is restored to its original condition quickly and efficiently</p>
+          <h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold mb-6" style="color:#0F172A">About Us</h2>
+          <p class="text-lg leading-relaxed mb-6" style="color:#64748B">At Carolina Water Damage Restoration of Charlotte, we understand the stress and urgency of water damage. With years of experience, our team provides expert craftsmanship and personalized service to restore your property to its original condition.</p>
           <div class="flex flex-wrap gap-6 text-sm font-bold">
             <div><span class="text-2xl" style="color:#1E293B">★ 4.9</span><div style="color:#64748B">Customer rating</div></div>
             <div><span class="text-2xl" style="color:#1E293B">Local</span><div style="color:#64748B">Charlotte, NC</div></div>
@@ -49,61 +98,140 @@
         </div>
       </div>
     </section>
-<section id="services" class="py-24" style="background:#FFFFFF">
-    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-3xl sm:text-4xl font-bold mb-12 text-center reveal" style="color:#0F172A">Our Services</h2>
+<section id="services" class="py-28 sm:py-32" style="background:#FFFFFF">
+    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold text-center reveal mb-12" style="color:#0F172A">Our Services</h2>
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    <div class="p-6 reveal" class="rounded-2xl border" style="background:#F8FAFC;border-color:#64748B33">
-      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#DC26261a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+    <div class="p-6 reveal [transition-delay:0ms]" class="rounded-2xl card-lift border" style="background:#F8FAFC;border-color:#64748B33">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#DC26261a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
       <h3 class="font-bold text-lg mb-2" style="color:#0F172A">Water Removal</h3>
-      <p class="text-sm" style="color:#64748B">Emergency water extraction and drying services</p>
+      <p class="text-sm" style="color:#64748B">Quick and efficient water extraction</p>
     </div>
-    <div class="p-6 reveal" class="rounded-2xl border" style="background:#F8FAFC;border-color:#64748B33">
-      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#DC26261a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
-      <h3 class="font-bold text-lg mb-2" style="color:#0F172A">Mold Remediation</h3>
-      <p class="text-sm" style="color:#64748B">Safe and effective mold removal and prevention</p>
-    </div>
-    <div class="p-6 reveal" class="rounded-2xl border" style="background:#F8FAFC;border-color:#64748B33">
-      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#DC26261a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+    <div class="p-6 reveal [transition-delay:70ms]" class="rounded-2xl card-lift border" style="background:#F8FAFC;border-color:#64748B33">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#DC26261a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
       <h3 class="font-bold text-lg mb-2" style="color:#0F172A">Structural Drying</h3>
-      <p class="text-sm" style="color:#64748B">Advanced drying techniques for walls, floors, and ceilings</p>
+      <p class="text-sm" style="color:#64748B">Thorough drying to prevent further damage</p>
     </div>
-    <div class="p-6 reveal" class="rounded-2xl border" style="background:#F8FAFC;border-color:#64748B33">
-      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#DC26261a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+    <div class="p-6 reveal [transition-delay:140ms]" class="rounded-2xl card-lift border" style="background:#F8FAFC;border-color:#64748B33">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#DC26261a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+      <h3 class="font-bold text-lg mb-2" style="color:#0F172A">Mold Remediation</h3>
+      <p class="text-sm" style="color:#64748B">Safe and effective mold removal</p>
+    </div>
+    <div class="p-6 reveal [transition-delay:210ms]" class="rounded-2xl card-lift border" style="background:#F8FAFC;border-color:#64748B33">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#DC26261a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
       <h3 class="font-bold text-lg mb-2" style="color:#0F172A">Reconstruction</h3>
-      <p class="text-sm" style="color:#64748B">Complete restoration of damaged areas, including flooring and walls</p>
+      <p class="text-sm" style="color:#64748B">Complete restoration of damaged areas</p>
     </div></div>
     </div>
   </section>
-<section id="reviews" class="py-24" style="background:#F8FAFC">
-    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-3xl sm:text-4xl font-bold mb-12 text-center reveal" style="color:#0F172A">What Customers Say</h2><div class="grid sm:grid-cols-3 gap-6">
-    <div class="p-6 reveal flex flex-col gap-3" class="rounded-2xl border" style="background:#FFFFFF;border-color:#64748B33">
+<section id="reviews" class="py-28 sm:py-32" style="background:#F8FAFC">
+    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold mb-12 text-center reveal" style="color:#0F172A">What Customers Say</h2><div class="grid sm:grid-cols-3 gap-6">
+    <div class="p-6 reveal flex flex-col gap-3 [transition-delay:0ms]" class="rounded-2xl card-lift border" style="background:#FFFFFF;border-color:#64748B33">
       <div class="flex items-start justify-between"><div class="font-[var(--font-head)] text-5xl leading-none select-none" aria-hidden="true" style="color:#1E293B;opacity:.35">“</div><div class="text-sm pt-2" style="color:#DC2626;letter-spacing:2px">★★★★★<span style="opacity:.25"></span></div></div>
       <p class="text-sm leading-relaxed flex-1" style="color:#0F172A">When water damage occurs and the source and extent are unknown, immediate investigation and repair are a necessity - Carolina Water Damage Restoration of Charlotte was promptly on top of both when we experienced a water pipe blockage and overflow damage.</p>
-      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#DC26261a;color:#DC2626">✓ Google review</span>
+      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#DC26261a;color:#DC2626"><svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Google review</span>
     </div>
-    <div class="p-6 reveal flex flex-col gap-3" class="rounded-2xl border" style="background:#FFFFFF;border-color:#64748B33">
+    <div class="p-6 reveal flex flex-col gap-3 [transition-delay:70ms]" class="rounded-2xl card-lift border" style="background:#FFFFFF;border-color:#64748B33">
       <div class="flex items-start justify-between"><div class="font-[var(--font-head)] text-5xl leading-none select-none" aria-hidden="true" style="color:#1E293B;opacity:.35">“</div><div class="text-sm pt-2" style="color:#DC2626;letter-spacing:2px">★★★★★<span style="opacity:.25"></span></div></div>
       <p class="text-sm leading-relaxed flex-1" style="color:#0F172A">I reached out to CWDR to help with a water leak and suspected mold growth as my breathing was being affected.  They were super responsive and came out that day to do an inspection.</p>
-      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#DC26261a;color:#DC2626">✓ Google review</span>
+      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#DC26261a;color:#DC2626"><svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Google review</span>
     </div>
-    <div class="p-6 reveal flex flex-col gap-3" class="rounded-2xl border" style="background:#FFFFFF;border-color:#64748B33">
+    <div class="p-6 reveal flex flex-col gap-3 [transition-delay:140ms]" class="rounded-2xl card-lift border" style="background:#FFFFFF;border-color:#64748B33">
       <div class="flex items-start justify-between"><div class="font-[var(--font-head)] text-5xl leading-none select-none" aria-hidden="true" style="color:#1E293B;opacity:.35">“</div><div class="text-sm pt-2" style="color:#DC2626;letter-spacing:2px">★★★★★<span style="opacity:.25"></span></div></div>
       <p class="text-sm leading-relaxed flex-1" style="color:#0F172A">My office space had a couple inches of standing water from a leak in my neighbor&#39;s suite. I called Carolina Water Damage Restoration of Charlotte, and Jake was on site in under an hour.</p>
-      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#DC26261a;color:#DC2626">✓ Google review</span>
+      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#DC26261a;color:#DC2626"><svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Google review</span>
     </div></div></div>
   </section>
-<section id="gallery" class="py-24" style="background:#FFFFFF">
-    <div class="max-w-6xl mx-auto px-6"><div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAF6J34vgkWtm6sRZJxS_a9nBD65Xelm_ybmLiWxe81eZrgB1_4aawptkKJH6mBcDfJYrBimF8aU9-H4RG5spjZ4OfnrB0ZlQO0k0DSzmCIwqdQpXnvYQNF70og2Uw5TSfgdeeipHA=w1600-h1200-k-no" alt="Carolina Water Damage Restoration of Charlotte" class="rounded-xl w-full h-48 object-cover reveal"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAG-8Yzi1MnsteTnsqRXME5fvJu9HleDzLoozuyMb5et4myFVxrm6Zdf0_PJpzzEWLrSufkrD1qVWklTsAe9Lg2RuMUIg-VtEmhazviipXnxfS6wIrJl9FypSbCuDNrmzAbR-UK2=w1600-h1200-k-no" alt="Carolina Water Damage Restoration of Charlotte" class="rounded-xl w-full h-48 object-cover reveal"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGjzh1d3pdKiUrfuQuZrCoI74ebfnw_j4MTOu8esMkH3TDj3VbGYX95QwS4eItVCgylPN-aQUmaI2J2npFBQcLE818KGaIt5fU4DDxr3c8AGsfXHLR-v1ESDxpibv3v9y5Vr6I=w1600-h1200-k-no" alt="Carolina Water Damage Restoration of Charlotte" class="rounded-xl w-full h-48 object-cover reveal"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAErbV80mNt8hjKi944Pr0SztJPPO1njbHzt6bA7mqa7jQLcIE1mkwlaHZxPVb4qaJYOsaZpM9b4bR9TqXWDeAH72SVPJu1guGQmywgER49mgajo8APEH-if14ftbpHTFemTmyC1cQ=w1600-h1200-k-no" alt="Carolina Water Damage Restoration of Charlotte" class="rounded-xl w-full h-48 object-cover reveal"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFCNqZpwfi9YxaAonQ49j7Ro1e6Hfa5mZB4mrTZMQRoy9SrPsVO1q4vb__zBGKe8FcifEWSS-vMMZAzv-fuVwHBgp_LWC0AbAInEXFSljKNiQYCyNIo9nolxtYSHQJBZBLZQKPvKg=w1600-h1200-k-no" alt="Carolina Water Damage Restoration of Charlotte" class="rounded-xl w-full h-48 object-cover reveal"></div></div>
+<section id="gallery" class="py-28 sm:py-32" style="background:#FFFFFF">
+    <div class="max-w-6xl mx-auto px-6"><div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4"><div class="img-zoom rounded-2xl reveal [transition-delay:0ms]"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAF6J34vgkWtm6sRZJxS_a9nBD65Xelm_ybmLiWxe81eZrgB1_4aawptkKJH6mBcDfJYrBimF8aU9-H4RG5spjZ4OfnrB0ZlQO0k0DSzmCIwqdQpXnvYQNF70og2Uw5TSfgdeeipHA=w1600-h1200-k-no" alt="Carolina Water Damage Restoration of Charlotte" class="w-full h-48 object-cover"></div><div class="img-zoom rounded-2xl reveal [transition-delay:60ms]"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAG-8Yzi1MnsteTnsqRXME5fvJu9HleDzLoozuyMb5et4myFVxrm6Zdf0_PJpzzEWLrSufkrD1qVWklTsAe9Lg2RuMUIg-VtEmhazviipXnxfS6wIrJl9FypSbCuDNrmzAbR-UK2=w1600-h1200-k-no" alt="Carolina Water Damage Restoration of Charlotte" class="w-full h-48 object-cover"></div><div class="img-zoom rounded-2xl reveal [transition-delay:120ms]"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGjzh1d3pdKiUrfuQuZrCoI74ebfnw_j4MTOu8esMkH3TDj3VbGYX95QwS4eItVCgylPN-aQUmaI2J2npFBQcLE818KGaIt5fU4DDxr3c8AGsfXHLR-v1ESDxpibv3v9y5Vr6I=w1600-h1200-k-no" alt="Carolina Water Damage Restoration of Charlotte" class="w-full h-48 object-cover"></div><div class="img-zoom rounded-2xl reveal [transition-delay:180ms]"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAErbV80mNt8hjKi944Pr0SztJPPO1njbHzt6bA7mqa7jQLcIE1mkwlaHZxPVb4qaJYOsaZpM9b4bR9TqXWDeAH72SVPJu1guGQmywgER49mgajo8APEH-if14ftbpHTFemTmyC1cQ=w1600-h1200-k-no" alt="Carolina Water Damage Restoration of Charlotte" class="w-full h-48 object-cover"></div></div></div>
   </section>
-<section id="contact" class="py-24" style="background:#F8FAFC">
+<section id="why" class="py-28 sm:py-32" style="background:#F8FAFC">
+    <div class="max-w-5xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold text-center reveal mb-12" style="color:#0F172A">Why Choose Us</h2>
+      <ul class="grid sm:grid-cols-2 gap-x-10 gap-y-5 max-w-3xl mx-auto">
+    <li class="flex items-start gap-3 reveal [transition-delay:0ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#DC26261a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#0F172A">Expert Water Damage Restoration</span>
+    </li>
+    <li class="flex items-start gap-3 reveal [transition-delay:60ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#DC26261a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#0F172A">Personalized Service</span>
+    </li>
+    <li class="flex items-start gap-3 reveal [transition-delay:120ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#DC26261a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#0F172A">Years of Experience</span>
+    </li>
+    <li class="flex items-start gap-3 reveal [transition-delay:180ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#DC26261a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#0F172A">State of the Art Equipment</span>
+    </li>
+    <li class="flex items-start gap-3 reveal [transition-delay:240ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#DC26261a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#DC2626" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#0F172A">Compassionate Team</span>
+    </li></ul>
+    </div>
+  </section>
+<section id="process" class="py-28 sm:py-32" style="background:#FFFFFF">
+    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold text-center reveal mb-12" style="color:#0F172A">How It Works</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="relative p-6 reveal [transition-delay:0ms]" class="rounded-2xl card-lift border" style="background:#F8FAFC;border-color:#64748B33">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-full font-[var(--font-head)] text-lg font-bold" style="background:#1E293B;color:#FFFFFF">1</div>
+      <p class="uppercase tracking-[0.15em] text-xs font-bold mb-1" style="color:#DC2626">Step 1</p>
+      <h3 class="font-bold text-lg mb-2" style="color:#0F172A">Assessment</h3>
+      <p class="text-sm" style="color:#64748B">Quick and thorough damage assessment</p>
+    </div>
+    <div class="relative p-6 reveal [transition-delay:70ms]" class="rounded-2xl card-lift border" style="background:#F8FAFC;border-color:#64748B33">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-full font-[var(--font-head)] text-lg font-bold" style="background:#1E293B;color:#FFFFFF">2</div>
+      <p class="uppercase tracking-[0.15em] text-xs font-bold mb-1" style="color:#DC2626">Step 2</p>
+      <h3 class="font-bold text-lg mb-2" style="color:#0F172A">Remediation</h3>
+      <p class="text-sm" style="color:#64748B">Effective water removal and drying</p>
+    </div>
+    <div class="relative p-6 reveal [transition-delay:140ms]" class="rounded-2xl card-lift border" style="background:#F8FAFC;border-color:#64748B33">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-full font-[var(--font-head)] text-lg font-bold" style="background:#1E293B;color:#FFFFFF">3</div>
+      <p class="uppercase tracking-[0.15em] text-xs font-bold mb-1" style="color:#DC2626">Step 3</p>
+      <h3 class="font-bold text-lg mb-2" style="color:#0F172A">Restoration</h3>
+      <p class="text-sm" style="color:#64748B">Complete reconstruction of damaged areas</p>
+    </div></div>
+    </div>
+  </section>
+<section id="faq" class="py-28 sm:py-32" style="background:#F8FAFC">
+    <div class="max-w-3xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold text-center reveal mb-8" style="color:#0F172A">Common Questions</h2>
+      <div>
+    <details class="reveal border-b py-5" style="border-color:#64748B33">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-lg" style="color:#0F172A">
+        <span>What should I do if I have water damage?</span><svg class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="#1E293B" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <p class="mt-3 leading-relaxed" style="color:#64748B">Contact us immediately to minimize damage and prevent further issues</p>
+    </details>
+    <details class="reveal border-b py-5" style="border-color:#64748B33">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-lg" style="color:#0F172A">
+        <span>How long does the restoration process take?</span><svg class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="#1E293B" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <p class="mt-3 leading-relaxed" style="color:#64748B">The length of time varies depending on the extent of the damage</p>
+    </details>
+    <details class="reveal border-b py-5" style="border-color:#64748B33">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-lg" style="color:#0F172A">
+        <span>Do you offer mold remediation services?</span><svg class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="#1E293B" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <p class="mt-3 leading-relaxed" style="color:#64748B">Yes, our team is trained to safely and effectively remove mold</p>
+    </details></div>
+    </div>
+  </section>
+<section class="relative overflow-hidden" style="background:linear-gradient(135deg, #1E293B 0%, #DC2626 100%)">
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true" style="background:radial-gradient(60% 80% at 80% 20%, #FFFFFF26 0%, transparent 60%)"></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-6 py-24 sm:py-28 text-center reveal">
+      <h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold mb-4" style="color:#FFFFFF">Ready to Restore</h2>
+      <p class="text-lg mb-8 max-w-2xl mx-auto" style="color:#FFFFFF;opacity:.9">Get a free quote and let us handle the rest</p>
+      <div class="flex flex-wrap gap-4 justify-center"><a href="tel:+19803082847" class="btn-lift inline-flex items-center gap-2 px-8 py-4 rounded-lg font-bold text-lg" style="background:#FFFFFF;color:#1E293B"><svg class="w-5 h-5" fill="none" stroke="#1E293B" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Call Now</a><a href="#contact" class="btn-lift inline-flex items-center gap-2 px-8 py-4 rounded-lg font-bold text-lg border-2" style="border-color:#FFFFFF;color:#FFFFFF">Get a Free Quote <svg class="w-5 h-5" fill="none" stroke="#FFFFFF" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </section>
+<section id="contact" class="py-28 sm:py-32" style="background:#FFFFFF">
     <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-start reveal">
       <div>
-      <h2 class="font-[var(--font-head)] text-3xl sm:text-4xl font-bold mb-6" style="color:#0F172A">Get In Touch</h2>
-      <p class="mb-6" style="color:#64748B">317 Westwood Ave, Charlotte, NC 28203</p>
+      <h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold mb-6" style="color:#0F172A">Get In Touch</h2>
+      <p class="mb-6 inline-flex items-start gap-2" style="color:#64748B"><svg class="w-5 h-5" fill="none" stroke="#1E293B" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> <span>317 Westwood Ave, Charlotte, NC 28203</span></p>
       <div class="flex flex-col gap-3 w-fit">
-        <a href="tel:+19803082847" class="inline-block px-5 py-2 text-sm rounded-lg font-bold transition hover:scale-105 hover:opacity-95" style="background:#1E293B;color:#FFFFFF">📞 Call +19803082847</a>
+        <a href="tel:+19803082847" class="btn-lift inline-flex items-center gap-2 px-5 py-2 text-sm rounded-lg font-bold" style="background:#1E293B;color:#FFFFFF">Call +19803082847</a>
         
-        <a href="https://www.google.com/maps/search/?api=1&query=Carolina%20Water%20Damage%20Restoration%20of%20Charlotte%20317%20Westwood%20Ave%2C%20Charlotte%2C%20NC%2028203%20Charlotte%2C%20NC" class="inline-block px-6 py-3 rounded-lg font-bold border-2" style="border-color:#1E293B;color:#1E293B">Get Directions</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Carolina%20Water%20Damage%20Restoration%20of%20Charlotte%20317%20Westwood%20Ave%2C%20Charlotte%2C%20NC%2028203%20Charlotte%2C%20NC" class="btn-lift inline-flex items-center gap-2 px-6 py-3 rounded-lg font-bold border-2" style="border-color:#1E293B;color:#1E293B">Get Directions</a>
       </div>
     </div>
       <form class="quote-form flex flex-col gap-3" action="https://api.web3forms.com/submit" method="POST">
@@ -112,22 +240,48 @@
         <input type="hidden" name="from_name" value="Carolina Water Damage Restoration of Charlotte website">
         <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
         <h3 class="font-[var(--font-head)] text-xl font-bold" style="color:#0F172A">Request a Free Quote</h3>
-        <input name="name" required placeholder="Your name" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#FFFFFF;color:#0F172A">
-        <input name="phone" required placeholder="Phone number" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#FFFFFF;color:#0F172A">
-        <textarea name="message" rows="3" placeholder="How can we help?" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#FFFFFF;color:#0F172A"></textarea>
-        <button type="submit" class="px-6 py-3 rounded-lg font-bold" style="background:#1E293B;color:#FFFFFF">Get a Free Quote</button>
+        <input name="name" required placeholder="Your name" autocomplete="name" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#F8FAFC;color:#0F172A">
+        <input name="phone" type="tel" required placeholder="Phone number" autocomplete="tel" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#F8FAFC;color:#0F172A">
+        <textarea name="message" rows="3" placeholder="How can we help?" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#F8FAFC;color:#0F172A"></textarea>
+        <button type="submit" class="btn-lift px-6 py-3 rounded-lg font-bold" style="background:#1E293B;color:#FFFFFF">Get a Free Quote</button>
         <p class="form-status text-sm" style="color:#64748B"></p>
       </form>
     </div>
   </section>
-<footer class="py-10 border-t text-center text-sm" style="background:#FFFFFF;border-color:#64748B22;color:#64748B">
-  © 2026 Carolina Water Damage Restoration of Charlotte · Charlotte, NC
+<footer class="pt-14 pb-8 border-t" style="background:#FFFFFF;border-color:#64748B22;color:#64748B">
+  <div class="max-w-6xl mx-auto px-6 grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <div>
+      <div class="font-[var(--font-head)] text-xl font-bold mb-3" style="color:#0F172A">Carolina Water Damage Restoration of Charlotte</div>
+      <p class="text-sm" style="opacity:.85">317 Westwood Ave, Charlotte, NC 28203</p>
+      <p class="text-sm mt-2" style="opacity:.85"><span style="color:#DC2626">★</span> 4.9 on Google</p>
+    </div>
+    <div>
+      <div class="font-semibold mb-3" style="color:#0F172A">Explore</div>
+      <ul class="space-y-2 text-sm"><li><a href="#services" class="hover:opacity-100 transition-opacity" style="opacity:.85">Services</a></li><li><a href="#reviews" class="hover:opacity-100 transition-opacity" style="opacity:.85">Reviews</a></li><li><a href="#faq" class="hover:opacity-100 transition-opacity" style="opacity:.85">FAQ</a></li><li><a href="#contact" class="hover:opacity-100 transition-opacity" style="opacity:.85">Contact</a></li></ul>
+    </div>
+    <div>
+      <div class="font-semibold mb-3" style="color:#0F172A">Get in touch</div>
+      <a href="tel:+19803082847" class="flex items-center gap-2 text-sm mb-2 hover:opacity-100 transition-opacity" style="opacity:.85"><svg class="w-4 h-4" fill="none" stroke="#64748B" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +19803082847</a>
+      <a href="#contact" class="flex items-center gap-2 text-sm mb-2 hover:opacity-100 transition-opacity" style="opacity:.85"><svg class="w-4 h-4" fill="none" stroke="#64748B" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Charlotte, NC</a>
+    </div>
+  </div>
+  <div class="max-w-6xl mx-auto px-6 mt-10 pt-6 border-t text-center text-sm" style="border-color:#64748B22;opacity:.85">
+    © 2026 Carolina Water Damage Restoration of Charlotte · Charlotte, NC
+  </div>
 </footer>
 <script>
   const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+  // Shadow on the sticky nav once the page has scrolled a touch.
+  const nav = document.getElementById('site-nav');
+  if (nav) {
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
 
   // Submit the quote form via Web3Forms without leaving the page; graceful inline status.
   document.querySelectorAll('.quote-form').forEach((form) => {
