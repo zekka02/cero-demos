@@ -10,39 +10,89 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root { --font-head: 'Poppins', sans-serif; --font-body: 'Open Sans', sans-serif; }
-  body { font-family: var(--font-body); background:#EFF6FF; color:#1E3A8A; }
-  .font-\[var\(--font-head\)\] { font-family: var(--font-head); }
+  body { font-family: var(--font-body); background:#EFF6FF; color:#1E3A8A; line-height: 1.6; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+  .font-\[var\(--font-head\)\] { font-family: var(--font-head); letter-spacing: -0.02em; }
+  html { scroll-behavior: smooth; }
+
+  /* Soft, layered depth shadow — reads more premium than Tailwind's heavy shadow-2xl. */
+  .shadow-soft { box-shadow: 0 24px 60px -18px #1E3A8A2b, 0 8px 24px -12px #1E3A8A17; }
+
+  /* Reveal-on-scroll (transform/opacity only → no layout shift, recorder-safe) */
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
-  html { scroll-behavior: smooth; }
+
+  /* Micro-interactions */
+  .btn-lift { transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease; }
+  .btn-lift:hover { transform: translateY(-2px); box-shadow: 0 12px 28px #1E3A8A1f; }
+  .card-lift { transition: transform .25s ease, box-shadow .25s ease; }
+  .card-lift:hover { transform: translateY(-4px); box-shadow: 0 18px 40px #1E3A8A1a; }
+  .img-zoom { overflow: hidden; }
+  .img-zoom img { transition: transform .5s ease; will-change: transform; }
+  .img-zoom:hover img { transform: scale(1.05); }
+
+  /* Scroll-aware nav */
+  #site-nav { transition: box-shadow .25s ease; }
+  #site-nav.scrolled { box-shadow: 0 6px 24px #1E3A8A14; }
+
+  /* Animated nav-link underline */
+  .nav-link { position: relative; }
+  .nav-link::after { content:''; position:absolute; left:0; bottom:-4px; height:2px; width:0; background:#1E40AF; transition: width .2s ease; }
+  .nav-link:hover::after { width:100%; }
+
+  /* FAQ accordion */
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+  .faq-chev { transition: transform .2s ease; }
+  details[open] .faq-chev { transform: rotate(180deg); }
+
+  /* Focus visibility (keyboard nav) */
+  a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid #1E40AF; outline-offset: 3px; border-radius: 6px; }
+
+  /* Respect reduced motion — kill all movement, keep everything visible */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .btn-lift, .card-lift, .img-zoom img, #site-nav, .nav-link::after, .faq-chev { transition: none !important; }
+    .btn-lift:hover, .card-lift:hover { transform: none !important; }
+    .img-zoom:hover img { transform: none !important; }
+  }
 </style>
 </head>
 <body>
-<nav class="sticky top-0 z-50 backdrop-blur-md border-b" style="background:#EFF6FFcc;border-color:#64748B33">
-  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between"><span class="font-[var(--font-head)] text-xl font-bold" style="color:#1E3A8A">Paul Davis Restoration of Tulsa Ok</span><a href="tel:+19186635848" class="inline-block px-5 py-2 rounded-2xl text-sm font-bold" style="background:#1E40AF;color:#FFFFFF">📞 Call Now</a></div>
+<nav id="site-nav" class="sticky top-0 z-50 backdrop-blur-md border-b" style="background:#EFF6FFcc;border-color:#64748B33">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between"><span class="font-[var(--font-head)] text-xl font-bold" style="color:#1E3A8A">Paul Davis Restoration of Tulsa Ok</span><a href="tel:+19186635848" class="btn-lift inline-flex items-center gap-1.5 px-5 py-2 rounded-2xl text-sm font-bold" style="background:#1E40AF;color:#FFFFFF"><svg class="w-4 h-4" fill="none" stroke="#FFFFFF" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Call Now</a></div>
 </nav>
-<section class="relative" style="background:#EFF6FF">
-      <div class="max-w-7xl mx-auto px-6 py-28 grid md:grid-cols-2 gap-12 items-center">
+<section class="relative overflow-hidden" style="background:#EFF6FF">
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true" style="background:radial-gradient(55% 55% at 12% 8%, #1E40AF1f 0%, transparent 60%), radial-gradient(50% 50% at 92% 15%, #EA580C1a 0%, transparent 55%)"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-6 py-28 grid md:grid-cols-2 gap-12 items-center">
         <div class="reveal">
-          <p class="uppercase tracking-[0.2em] text-sm font-bold mb-4" style="color:#1E40AF">Building restoration service · Tulsa, OK</p><h1 class="font-[var(--font-head)] text-4xl sm:text-6xl font-bold leading-[1.05] mb-6" style="color:#1E3A8A">Fast Help When Disaster Strikes</h1>
-          <p class="text-lg mb-8" style="color:#64748B">Same-day building restoration services in Tulsa, OK, because every minute counts</p><div class="flex flex-wrap gap-4 justify-start"><a href="tel:+19186635848" class="inline-block px-8 py-4 rounded-2xl font-bold text-lg transition hover:scale-105" style="background:#1E40AF;color:#FFFFFF">📞 Call Now</a><a href="#contact" class="inline-block px-8 py-4 rounded-2xl font-bold text-lg border-2 transition hover:scale-105" style="border-color:#1E40AF;color:#1E40AF">Get a Free Quote</a></div>
+          <p class="uppercase tracking-[0.2em] text-sm font-bold mb-5" style="color:#1E40AF">Building restoration service · Tulsa, OK</p><h1 class="font-[var(--font-head)] text-4xl sm:text-6xl font-bold leading-[1.05] mb-7" style="color:#1E3A8A">Fast Restoration, Anytime</h1>
+          <p class="text-lg mb-8" style="color:#64748B">Same-day emergency response and building restoration services in Tulsa, OK</p><div class="flex flex-wrap gap-4 justify-start"><a href="tel:+19186635848" class="btn-lift inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-lg" style="background:#1E40AF;color:#FFFFFF"><svg class="w-5 h-5" fill="none" stroke="#FFFFFF" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Call Now</a><a href="#contact" class="btn-lift inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-lg border-2" style="border-color:#1E40AF;color:#1E40AF">Get a Free Quote</a></div><div class="flex flex-wrap gap-2 mt-8 justify-start"><span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold" style="background:#1E40AF14;color:#1E3A8A"><span style="color:#EA580C">★★★★★</span> 4.6</span><span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold" style="background:#1E40AF14;color:#1E3A8A"><svg class="w-4 h-4" fill="none" stroke="#1E40AF" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Tulsa, OK</span><span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold" style="background:#1E40AF14;color:#1E3A8A"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#1E40AF" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Free estimates</span></div>
         </div>
-        <div class="reveal"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFKR8dBAH866zPOZ2yeQItSh6Gje2PmY-zukGZV-IS2JVq9-0pEn8zlSp7xaHAdX1ubco7hOMkSgw6xG9CuQ11aepbkBRhchgW1yFIh_tlfFqW_ytBOaoBJM72UOy_H-BMQdCVBHPDoK9WW=w1600-h1200-k-no" alt="Paul Davis Restoration of Tulsa Ok" class="rounded-3xl shadow-2xl w-full h-[420px] object-cover"></div>
+        <div class="reveal img-zoom rounded-3xl shadow-soft"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFKR8dBAH866zPOZ2yeQItSh6Gje2PmY-zukGZV-IS2JVq9-0pEn8zlSp7xaHAdX1ubco7hOMkSgw6xG9CuQ11aepbkBRhchgW1yFIh_tlfFqW_ytBOaoBJM72UOy_H-BMQdCVBHPDoK9WW=w1600-h1200-k-no" alt="Paul Davis Restoration of Tulsa Ok" class="w-full h-[420px] object-cover"></div>
       </div>
     </section>
-<section class="py-6 border-y" style="background:#FFFFFF;border-color:#64748B22">
-    <div class="max-w-5xl mx-auto px-6 flex flex-wrap items-center justify-center gap-8 text-sm font-bold">
-      <span style="color:#1E3A8A">★ 4.6 Rating</span>
-      <span style="color:#1E3A8A">Trusted by hundreds in Tulsa, OK with a 4.6-star rating</span>
-      <span style="color:#1E3A8A">📍 Tulsa, OK</span>
-    </div>
+<section class="py-8 border-y" style="background:#FFFFFF;border-color:#64748B22">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6"><div class="flex items-center gap-2 justify-center reveal">
+      <span style="color:#EA580C;letter-spacing:1px">★★★★★</span>
+      <span class="font-semibold text-sm sm:text-base" style="color:#1E3A8A">4.6 on Google</span>
+    </div><div class="flex items-center gap-2.5 justify-center reveal [transition-delay:60ms]">
+      <span class="inline-flex items-center justify-center w-9 h-9 rounded-full shrink-0" style="background:#EA580C1a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="font-semibold text-sm sm:text-base" style="color:#1E3A8A">Fast Response</span>
+    </div><div class="flex items-center gap-2.5 justify-center reveal [transition-delay:120ms]">
+      <span class="inline-flex items-center justify-center w-9 h-9 rounded-full shrink-0" style="background:#EA580C1a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="font-semibold text-sm sm:text-base" style="color:#1E3A8A">Locally Owned</span>
+    </div><div class="flex items-center gap-2.5 justify-center reveal [transition-delay:180ms]">
+      <span class="inline-flex items-center justify-center w-9 h-9 rounded-full shrink-0" style="background:#EA580C1a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="font-semibold text-sm sm:text-base" style="color:#1E3A8A">Satisfaction Guaranteed</span>
+    </div></div>
   </section>
-<section id="about" class="py-24" style="background:#EFF6FF">
+<section id="about" class="py-28 sm:py-32" style="background:#EFF6FF">
       <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-        <div class="reveal"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAHKuMKJIviztqFc9vutsN-sUWaJl65Whfruqkkl1DBUFfnzpiIdhWr6Yj2QAxW_O288iFDmXArLCwxtItJLtXys82NkEht6rBki0Tz-rAf7sM7do5qh9_u8QL5CQTqzm-4BSeWQlOgHwnI=w1600-h1200-k-no" alt="Paul Davis Restoration of Tulsa Ok" class="rounded-3xl shadow-xl w-full h-[380px] object-cover"></div>
+        <div class="reveal img-zoom rounded-3xl shadow-soft"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAHKuMKJIviztqFc9vutsN-sUWaJl65Whfruqkkl1DBUFfnzpiIdhWr6Yj2QAxW_O288iFDmXArLCwxtItJLtXys82NkEht6rBki0Tz-rAf7sM7do5qh9_u8QL5CQTqzm-4BSeWQlOgHwnI=w1600-h1200-k-no" alt="Paul Davis Restoration of Tulsa Ok" class="w-full h-[380px] object-cover"></div>
         <div class="reveal">
-          <h2 class="font-[var(--font-head)] text-3xl sm:text-4xl font-bold mb-6" style="color:#1E3A8A">Local Experts</h2>
-          <p class="text-lg leading-relaxed mb-6" style="color:#64748B">At Paul Davis Restoration of Tulsa, OK, our team is dedicated to providing prompt and professional building restoration services to get you back on track quickly. With a strong focus on customer satisfaction, we strive to make the restoration process as smooth as possible.</p>
+          <h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold mb-6" style="color:#1E3A8A">About Us</h2>
+          <p class="text-lg leading-relaxed mb-6" style="color:#64748B">Paul Davis Restoration of Tulsa, OK provides reliable building restoration services with a focus on speed and emergency response, ensuring you get the help you need when it matters most</p>
           <div class="flex flex-wrap gap-6 text-sm font-bold">
             <div><span class="text-2xl" style="color:#1E40AF">★ 4.6</span><div style="color:#64748B">Customer rating</div></div>
             <div><span class="text-2xl" style="color:#1E40AF">Local</span><div style="color:#64748B">Tulsa, OK</div></div>
@@ -50,61 +100,140 @@
         </div>
       </div>
     </section>
-<section id="services" class="py-24" style="background:#FFFFFF">
-    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-3xl sm:text-4xl font-bold mb-12 text-center reveal" style="color:#1E3A8A">Our Services</h2>
+<section id="services" class="py-28 sm:py-32" style="background:#FFFFFF">
+    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold text-center reveal mb-12" style="color:#1E3A8A">Our Services</h2>
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    <div class="p-6 reveal" class="rounded-2xl border" style="background:#EFF6FF;border-color:#64748B33">
-      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#EA580C1a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+    <div class="p-6 reveal [transition-delay:0ms]" class="rounded-2xl card-lift border" style="background:#EFF6FF;border-color:#64748B33">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#EA580C1a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
       <h3 class="font-bold text-lg mb-2" style="color:#1E3A8A">Water Damage</h3>
-      <p class="text-sm" style="color:#64748B">Emergency water removal and drying services</p>
+      <p class="text-sm" style="color:#64748B">Quickly restore your property after water damage</p>
     </div>
-    <div class="p-6 reveal" class="rounded-2xl border" style="background:#EFF6FF;border-color:#64748B33">
-      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#EA580C1a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+    <div class="p-6 reveal [transition-delay:70ms]" class="rounded-2xl card-lift border" style="background:#EFF6FF;border-color:#64748B33">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#EA580C1a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
       <h3 class="font-bold text-lg mb-2" style="color:#1E3A8A">Fire Restoration</h3>
-      <p class="text-sm" style="color:#64748B">Fast fire damage cleanup and repair solutions</p>
+      <p class="text-sm" style="color:#64748B">Recover from fire damage with our expert services</p>
     </div>
-    <div class="p-6 reveal" class="rounded-2xl border" style="background:#EFF6FF;border-color:#64748B33">
-      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#EA580C1a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
-      <h3 class="font-bold text-lg mb-2" style="color:#1E3A8A">Mold Remediation</h3>
-      <p class="text-sm" style="color:#64748B">Safe and effective mold removal and prevention</p>
+    <div class="p-6 reveal [transition-delay:140ms]" class="rounded-2xl card-lift border" style="background:#EFF6FF;border-color:#64748B33">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#EA580C1a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+      <h3 class="font-bold text-lg mb-2" style="color:#1E3A8A">Mold Removal</h3>
+      <p class="text-sm" style="color:#64748B">Safely remove mold and prevent future growth</p>
     </div>
-    <div class="p-6 reveal" class="rounded-2xl border" style="background:#EFF6FF;border-color:#64748B33">
-      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#EA580C1a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+    <div class="p-6 reveal [transition-delay:210ms]" class="rounded-2xl card-lift border" style="background:#EFF6FF;border-color:#64748B33">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#EA580C1a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
       <h3 class="font-bold text-lg mb-2" style="color:#1E3A8A">Storm Damage</h3>
-      <p class="text-sm" style="color:#64748B">Quick storm damage repair and restoration services</p>
+      <p class="text-sm" style="color:#64748B">Restore your property after severe weather events</p>
     </div></div>
     </div>
   </section>
-<section id="reviews" class="py-24" style="background:#EFF6FF">
-    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-3xl sm:text-4xl font-bold mb-12 text-center reveal" style="color:#1E3A8A">What Customers Say</h2><div class="grid sm:grid-cols-3 gap-6">
-    <div class="p-6 reveal flex flex-col gap-3" class="rounded-2xl border" style="background:#FFFFFF;border-color:#64748B33">
+<section id="reviews" class="py-28 sm:py-32" style="background:#EFF6FF">
+    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold mb-12 text-center reveal" style="color:#1E3A8A">What Customers Say</h2><div class="grid sm:grid-cols-3 gap-6">
+    <div class="p-6 reveal flex flex-col gap-3 [transition-delay:0ms]" class="rounded-2xl card-lift border" style="background:#FFFFFF;border-color:#64748B33">
       <div class="flex items-start justify-between"><div class="font-[var(--font-head)] text-5xl leading-none select-none" aria-hidden="true" style="color:#1E40AF;opacity:.35">“</div><div class="text-sm pt-2" style="color:#EA580C;letter-spacing:2px">★★★★★<span style="opacity:.25"></span></div></div>
       <p class="text-sm leading-relaxed flex-1" style="color:#1E3A8A">We were more than pleased with Paul Davis Restoration&#39;s employees. Mark, the project manager, kept us informed at all times about what the next step would be and when it would happen. He was great to work with and very knowledgeable.</p>
-      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#EA580C1a;color:#EA580C">✓ Google review</span>
+      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#EA580C1a;color:#EA580C"><svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Google review</span>
     </div>
-    <div class="p-6 reveal flex flex-col gap-3" class="rounded-2xl border" style="background:#FFFFFF;border-color:#64748B33">
+    <div class="p-6 reveal flex flex-col gap-3 [transition-delay:70ms]" class="rounded-2xl card-lift border" style="background:#FFFFFF;border-color:#64748B33">
       <div class="flex items-start justify-between"><div class="font-[var(--font-head)] text-5xl leading-none select-none" aria-hidden="true" style="color:#1E40AF;opacity:.35">“</div><div class="text-sm pt-2" style="color:#EA580C;letter-spacing:2px">★★★★★<span style="opacity:.25"></span></div></div>
       <p class="text-sm leading-relaxed flex-1" style="color:#1E3A8A">Paul Davis Restoration has been a great partner to both the clients and the agents.  They are very responsive and our clients who use them are very satisfied.</p>
-      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#EA580C1a;color:#EA580C">✓ Google review</span>
+      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#EA580C1a;color:#EA580C"><svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Google review</span>
     </div>
-    <div class="p-6 reveal flex flex-col gap-3" class="rounded-2xl border" style="background:#FFFFFF;border-color:#64748B33">
+    <div class="p-6 reveal flex flex-col gap-3 [transition-delay:140ms]" class="rounded-2xl card-lift border" style="background:#FFFFFF;border-color:#64748B33">
       <div class="flex items-start justify-between"><div class="font-[var(--font-head)] text-5xl leading-none select-none" aria-hidden="true" style="color:#1E40AF;opacity:.35">“</div><div class="text-sm pt-2" style="color:#EA580C;letter-spacing:2px">★★★★★<span style="opacity:.25"></span></div></div>
       <p class="text-sm leading-relaxed flex-1" style="color:#1E3A8A">Steven was great he is always calling before hand and had great customer service</p>
-      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#EA580C1a;color:#EA580C">✓ Google review</span>
+      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#EA580C1a;color:#EA580C"><svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Google review</span>
     </div></div></div>
   </section>
-<section id="gallery" class="py-24" style="background:#FFFFFF">
-      <div class="max-w-7xl mx-auto px-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAHKuMKJIviztqFc9vutsN-sUWaJl65Whfruqkkl1DBUFfnzpiIdhWr6Yj2QAxW_O288iFDmXArLCwxtItJLtXys82NkEht6rBki0Tz-rAf7sM7do5qh9_u8QL5CQTqzm-4BSeWQlOgHwnI=w1600-h1200-k-no" alt="Paul Davis Restoration of Tulsa Ok" class="rounded-2xl w-full h-72 object-cover reveal"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGQNtYGJXOY_LwNSvdPDGET4Stqutc8HI1GFd09xBKr3dvnGp4NAzeqbcL1wMXPihEPdN9To6FQv3mIwJa3xma7TVFkoc9ZoChowkJZpMx4QiXFrPrsU1edCN-jPx0YC1GOXQEitU5iUK-m=w1600-h1200-k-no" alt="Paul Davis Restoration of Tulsa Ok" class="rounded-2xl w-full h-72 object-cover reveal"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAE101NP2CUHaJpXrMAKnWr03tuJ6HP0bMUKBOd6npVfvTSju2dGbVSYvz3ppk_UiQuLRFyVJOnD4SKsDSEuSXdV4_qbjEr6SOEAIZnut0t7GHmlmT_NmW_MuUoKeBsOnD5btlQ5RRHWAXhQ=w1600-h1200-k-no" alt="Paul Davis Restoration of Tulsa Ok" class="rounded-2xl w-full h-72 object-cover reveal"></div>
+<section id="gallery" class="py-28 sm:py-32" style="background:#FFFFFF">
+      <div class="max-w-7xl mx-auto px-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5"><div class="img-zoom rounded-2xl reveal [transition-delay:0ms]"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAHKuMKJIviztqFc9vutsN-sUWaJl65Whfruqkkl1DBUFfnzpiIdhWr6Yj2QAxW_O288iFDmXArLCwxtItJLtXys82NkEht6rBki0Tz-rAf7sM7do5qh9_u8QL5CQTqzm-4BSeWQlOgHwnI=w1600-h1200-k-no" alt="Paul Davis Restoration of Tulsa Ok" class="w-full h-72 object-cover"></div><div class="img-zoom rounded-2xl reveal [transition-delay:80ms]"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGQNtYGJXOY_LwNSvdPDGET4Stqutc8HI1GFd09xBKr3dvnGp4NAzeqbcL1wMXPihEPdN9To6FQv3mIwJa3xma7TVFkoc9ZoChowkJZpMx4QiXFrPrsU1edCN-jPx0YC1GOXQEitU5iUK-m=w1600-h1200-k-no" alt="Paul Davis Restoration of Tulsa Ok" class="w-full h-72 object-cover"></div><div class="img-zoom rounded-2xl reveal [transition-delay:160ms]"><img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAE101NP2CUHaJpXrMAKnWr03tuJ6HP0bMUKBOd6npVfvTSju2dGbVSYvz3ppk_UiQuLRFyVJOnD4SKsDSEuSXdV4_qbjEr6SOEAIZnut0t7GHmlmT_NmW_MuUoKeBsOnD5btlQ5RRHWAXhQ=w1600-h1200-k-no" alt="Paul Davis Restoration of Tulsa Ok" class="w-full h-72 object-cover"></div></div>
     </section>
-<section id="contact" class="py-24" style="background:#EFF6FF">
+<section id="why" class="py-28 sm:py-32" style="background:#EFF6FF">
+    <div class="max-w-5xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold text-center reveal mb-12" style="color:#1E3A8A">Why Choose Us</h2>
+      <ul class="grid sm:grid-cols-2 gap-x-10 gap-y-5 max-w-3xl mx-auto">
+    <li class="flex items-start gap-3 reveal [transition-delay:0ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#EA580C1a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#1E3A8A">Experienced Team</span>
+    </li>
+    <li class="flex items-start gap-3 reveal [transition-delay:60ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#EA580C1a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#1E3A8A">Quick Response Times</span>
+    </li>
+    <li class="flex items-start gap-3 reveal [transition-delay:120ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#EA580C1a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#1E3A8A">Personalized Service</span>
+    </li>
+    <li class="flex items-start gap-3 reveal [transition-delay:180ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#EA580C1a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#1E3A8A">Emergency Availability</span>
+    </li>
+    <li class="flex items-start gap-3 reveal [transition-delay:240ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#EA580C1a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#EA580C" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#1E3A8A">Local Expertise</span>
+    </li></ul>
+    </div>
+  </section>
+<section id="process" class="py-28 sm:py-32" style="background:#FFFFFF">
+    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold text-center reveal mb-12" style="color:#1E3A8A">How It Works</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="relative p-6 reveal [transition-delay:0ms]" class="rounded-2xl card-lift border" style="background:#EFF6FF;border-color:#64748B33">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-full font-[var(--font-head)] text-lg font-bold" style="background:#1E40AF;color:#FFFFFF">1</div>
+      <p class="uppercase tracking-[0.15em] text-xs font-bold mb-1" style="color:#EA580C">Step 1</p>
+      <h3 class="font-bold text-lg mb-2" style="color:#1E3A8A">Initial Assessment</h3>
+      <p class="text-sm" style="color:#64748B">Our team assesses the damage and creates a plan</p>
+    </div>
+    <div class="relative p-6 reveal [transition-delay:70ms]" class="rounded-2xl card-lift border" style="background:#EFF6FF;border-color:#64748B33">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-full font-[var(--font-head)] text-lg font-bold" style="background:#1E40AF;color:#FFFFFF">2</div>
+      <p class="uppercase tracking-[0.15em] text-xs font-bold mb-1" style="color:#EA580C">Step 2</p>
+      <h3 class="font-bold text-lg mb-2" style="color:#1E3A8A">Restoration Work</h3>
+      <p class="text-sm" style="color:#64748B">We perform the necessary restoration work to your property</p>
+    </div>
+    <div class="relative p-6 reveal [transition-delay:140ms]" class="rounded-2xl card-lift border" style="background:#EFF6FF;border-color:#64748B33">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-full font-[var(--font-head)] text-lg font-bold" style="background:#1E40AF;color:#FFFFFF">3</div>
+      <p class="uppercase tracking-[0.15em] text-xs font-bold mb-1" style="color:#EA580C">Step 3</p>
+      <h3 class="font-bold text-lg mb-2" style="color:#1E3A8A">Final Inspection</h3>
+      <p class="text-sm" style="color:#64748B">We ensure the work is done to your satisfaction</p>
+    </div></div>
+    </div>
+  </section>
+<section id="faq" class="py-28 sm:py-32" style="background:#EFF6FF">
+    <div class="max-w-3xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold text-center reveal mb-8" style="color:#1E3A8A">Common Questions</h2>
+      <div>
+    <details class="reveal border-b py-5" style="border-color:#64748B33">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-lg" style="color:#1E3A8A">
+        <span>What is the first step in the restoration process?</span><svg class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="#1E40AF" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <p class="mt-3 leading-relaxed" style="color:#64748B">Our team will assess the damage and create a plan to restore your property</p>
+    </details>
+    <details class="reveal border-b py-5" style="border-color:#64748B33">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-lg" style="color:#1E3A8A">
+        <span>Do you offer emergency services?</span><svg class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="#1E40AF" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <p class="mt-3 leading-relaxed" style="color:#64748B">Yes, we are available to respond to emergencies and provide quick restoration services</p>
+    </details>
+    <details class="reveal border-b py-5" style="border-color:#64748B33">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-lg" style="color:#1E3A8A">
+        <span>How long does the restoration process take?</span><svg class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="#1E40AF" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <p class="mt-3 leading-relaxed" style="color:#64748B">The length of the process varies depending on the extent of the damage</p>
+    </details></div>
+    </div>
+  </section>
+<section class="relative overflow-hidden" style="background:linear-gradient(135deg, #1E40AF 0%, #EA580C 100%)">
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true" style="background:radial-gradient(60% 80% at 80% 20%, #FFFFFF26 0%, transparent 60%)"></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-6 py-24 sm:py-28 text-center reveal">
+      <h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold mb-4" style="color:#FFFFFF">Ready to Restore</h2>
+      <p class="text-lg mb-8 max-w-2xl mx-auto" style="color:#FFFFFF;opacity:.9">Get in touch with us to schedule your restoration services today</p>
+      <div class="flex flex-wrap gap-4 justify-center"><a href="tel:+19186635848" class="btn-lift inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-lg" style="background:#FFFFFF;color:#1E40AF"><svg class="w-5 h-5" fill="none" stroke="#1E40AF" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Call Now</a><a href="#contact" class="btn-lift inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-lg border-2" style="border-color:#FFFFFF;color:#FFFFFF">Get a Free Quote <svg class="w-5 h-5" fill="none" stroke="#FFFFFF" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </section>
+<section id="contact" class="py-28 sm:py-32" style="background:#FFFFFF">
     <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-start reveal">
       <div>
-      <h2 class="font-[var(--font-head)] text-3xl sm:text-4xl font-bold mb-6" style="color:#1E3A8A">Get In Touch</h2>
-      <p class="mb-6" style="color:#64748B">10025 E 44th Pl S, Tulsa, OK 74146</p>
+      <h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold mb-6" style="color:#1E3A8A">Get In Touch</h2>
+      <p class="mb-6 inline-flex items-start gap-2" style="color:#64748B"><svg class="w-5 h-5" fill="none" stroke="#1E40AF" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> <span>10025 E 44th Pl S, Tulsa, OK 74146</span></p>
       <div class="flex flex-col gap-3 w-fit">
-        <a href="tel:+19186635848" class="inline-block px-5 py-2 text-sm rounded-2xl font-bold transition hover:scale-105 hover:opacity-95" style="background:#1E40AF;color:#FFFFFF">📞 Call +19186635848</a>
+        <a href="tel:+19186635848" class="btn-lift inline-flex items-center gap-2 px-5 py-2 text-sm rounded-2xl font-bold" style="background:#1E40AF;color:#FFFFFF">Call +19186635848</a>
         
-        <a href="https://www.google.com/maps/search/?api=1&query=Paul%20Davis%20Restoration%20of%20Tulsa%20Ok%2010025%20E%2044th%20Pl%20S%2C%20Tulsa%2C%20OK%2074146%20Tulsa%2C%20OK" class="inline-block px-6 py-3 rounded-2xl font-bold border-2" style="border-color:#1E40AF;color:#1E40AF">Get Directions</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Paul%20Davis%20Restoration%20of%20Tulsa%20Ok%2010025%20E%2044th%20Pl%20S%2C%20Tulsa%2C%20OK%2074146%20Tulsa%2C%20OK" class="btn-lift inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-bold border-2" style="border-color:#1E40AF;color:#1E40AF">Get Directions</a>
       </div>
     </div>
       <form class="quote-form flex flex-col gap-3" action="https://api.web3forms.com/submit" method="POST">
@@ -113,22 +242,48 @@
         <input type="hidden" name="from_name" value="Paul Davis Restoration of Tulsa Ok website">
         <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
         <h3 class="font-[var(--font-head)] text-xl font-bold" style="color:#1E3A8A">Request a Free Quote</h3>
-        <input name="name" required placeholder="Your name" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#FFFFFF;color:#1E3A8A">
-        <input name="phone" required placeholder="Phone number" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#FFFFFF;color:#1E3A8A">
-        <textarea name="message" rows="3" placeholder="How can we help?" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#FFFFFF;color:#1E3A8A"></textarea>
-        <button type="submit" class="px-6 py-3 rounded-2xl font-bold" style="background:#1E40AF;color:#FFFFFF">Get a Free Quote</button>
+        <input name="name" required placeholder="Your name" autocomplete="name" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#EFF6FF;color:#1E3A8A">
+        <input name="phone" type="tel" required placeholder="Phone number" autocomplete="tel" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#EFF6FF;color:#1E3A8A">
+        <textarea name="message" rows="3" placeholder="How can we help?" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#EFF6FF;color:#1E3A8A"></textarea>
+        <button type="submit" class="btn-lift px-6 py-3 rounded-2xl font-bold" style="background:#1E40AF;color:#FFFFFF">Get a Free Quote</button>
         <p class="form-status text-sm" style="color:#64748B"></p>
       </form>
     </div>
   </section>
-<footer class="py-10 border-t text-center text-sm" style="background:#FFFFFF;border-color:#64748B22;color:#64748B">
-  © 2026 Paul Davis Restoration of Tulsa Ok · Tulsa, OK
+<footer class="pt-14 pb-8 border-t" style="background:#FFFFFF;border-color:#64748B22;color:#64748B">
+  <div class="max-w-6xl mx-auto px-6 grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <div>
+      <div class="font-[var(--font-head)] text-xl font-bold mb-3" style="color:#1E3A8A">Paul Davis Restoration of Tulsa Ok</div>
+      <p class="text-sm" style="opacity:.85">10025 E 44th Pl S, Tulsa, OK 74146</p>
+      <p class="text-sm mt-2" style="opacity:.85"><span style="color:#EA580C">★</span> 4.6 on Google</p>
+    </div>
+    <div>
+      <div class="font-semibold mb-3" style="color:#1E3A8A">Explore</div>
+      <ul class="space-y-2 text-sm"><li><a href="#services" class="hover:opacity-100 transition-opacity" style="opacity:.85">Services</a></li><li><a href="#reviews" class="hover:opacity-100 transition-opacity" style="opacity:.85">Reviews</a></li><li><a href="#faq" class="hover:opacity-100 transition-opacity" style="opacity:.85">FAQ</a></li><li><a href="#contact" class="hover:opacity-100 transition-opacity" style="opacity:.85">Contact</a></li></ul>
+    </div>
+    <div>
+      <div class="font-semibold mb-3" style="color:#1E3A8A">Get in touch</div>
+      <a href="tel:+19186635848" class="flex items-center gap-2 text-sm mb-2 hover:opacity-100 transition-opacity" style="opacity:.85"><svg class="w-4 h-4" fill="none" stroke="#64748B" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +19186635848</a>
+      <a href="#contact" class="flex items-center gap-2 text-sm mb-2 hover:opacity-100 transition-opacity" style="opacity:.85"><svg class="w-4 h-4" fill="none" stroke="#64748B" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Tulsa, OK</a>
+    </div>
+  </div>
+  <div class="max-w-6xl mx-auto px-6 mt-10 pt-6 border-t text-center text-sm" style="border-color:#64748B22;opacity:.85">
+    © 2026 Paul Davis Restoration of Tulsa Ok · Tulsa, OK
+  </div>
 </footer>
 <script>
   const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+  // Shadow on the sticky nav once the page has scrolled a touch.
+  const nav = document.getElementById('site-nav');
+  if (nav) {
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
 
   // Submit the quote form via Web3Forms without leaving the page; graceful inline status.
   document.querySelectorAll('.quote-form').forEach((form) => {
