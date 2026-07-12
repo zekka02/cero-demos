@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Action Door | The Garage Door Man — Garage door supplier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&family=Source+Sans+3:wght@400;700&display=swap">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { --font-head: 'Lexend', sans-serif; --font-body: 'Source Sans 3', sans-serif; }
+  body { font-family: var(--font-body); background:#F0FDFA; color:#134E4A; line-height: 1.6; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+  .font-\[var\(--font-head\)\] { font-family: var(--font-head); letter-spacing: -0.02em; }
+  html { scroll-behavior: smooth; }
+
+  /* Soft, layered depth shadow — reads more premium than Tailwind's heavy shadow-2xl. */
+  .shadow-soft { box-shadow: 0 24px 60px -18px #134E4A2b, 0 8px 24px -12px #134E4A17; }
+
+  /* Reveal-on-scroll (transform/opacity only → no layout shift, recorder-safe) */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Micro-interactions */
+  .btn-lift { transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease; }
+  .btn-lift:hover { transform: translateY(-2px); box-shadow: 0 12px 28px #134E4A1f; }
+  .card-lift { transition: transform .25s ease, box-shadow .25s ease; }
+  .card-lift:hover { transform: translateY(-4px); box-shadow: 0 18px 40px #134E4A1a; }
+  .img-zoom { overflow: hidden; }
+  .img-zoom img { transition: transform .5s ease; will-change: transform; }
+  .img-zoom:hover img { transform: scale(1.05); }
+
+  /* Scroll-aware nav */
+  #site-nav { transition: box-shadow .25s ease; }
+  #site-nav.scrolled { box-shadow: 0 6px 24px #134E4A14; }
+
+  /* Animated nav-link underline */
+  .nav-link { position: relative; }
+  .nav-link::after { content:''; position:absolute; left:0; bottom:-4px; height:2px; width:0; background:#0F766E; transition: width .2s ease; }
+  .nav-link:hover::after { width:100%; }
+
+  /* FAQ accordion */
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+  .faq-chev { transition: transform .2s ease; }
+  details[open] .faq-chev { transform: rotate(180deg); }
+
+  /* Focus visibility (keyboard nav) */
+  a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid #0F766E; outline-offset: 3px; border-radius: 6px; }
+
+  /* Respect reduced motion — kill all movement, keep everything visible */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .btn-lift, .card-lift, .img-zoom img, #site-nav, .nav-link::after, .faq-chev { transition: none !important; }
+    .btn-lift:hover, .card-lift:hover { transform: none !important; }
+    .img-zoom:hover img { transform: none !important; }
+  }
+</style>
+</head>
+<body>
+<nav id="site-nav" class="sticky top-0 z-50 backdrop-blur-md border-b" style="background:#F0FDFAcc;border-color:#64748B33">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between"><span class="font-[var(--font-head)] text-xl font-bold" style="color:#134E4A">Action Door | The Garage Door Man</span><div class="flex items-center gap-6">
+      <div class="hidden md:flex items-center gap-6"><a href="#services" class="nav-link text-sm font-semibold" style="color:#134E4A">Services</a><a href="#reviews" class="nav-link text-sm font-semibold" style="color:#134E4A">Reviews</a><a href="#contact" class="nav-link text-sm font-semibold" style="color:#134E4A">Contact</a></div>
+      <a href="tel:+19188343667" class="btn-lift inline-flex items-center gap-1.5 px-5 py-2 rounded-2xl text-sm font-bold" style="background:#0F766E;color:#FFFFFF"><svg class="w-4 h-4" fill="none" stroke="#FFFFFF" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Call Now</a></div></div>
+</nav>
+<section class="relative min-h-screen flex items-center" style="background:#F0FDFA">
+      <img src="https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=onvjctgW5tfFqq4F5DsqaA&cb_client=search.gws-prod.gps&w=1920&h=1129&yaw=271.40268&pitch=0&thumbfov=100" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.55]">
+      <div class="absolute inset-0" style="background:radial-gradient(110% 110% at 50% 42%, #F0FDFAf2 0%, #F0FDFAe0 44%, #F0FDFA99 100%)"></div>
+      <div class="relative z-10 max-w-5xl mx-auto px-6 py-32 text-center reveal">
+        <p class="uppercase tracking-[0.2em] text-sm font-bold mb-5" style="color:#0F766E">Garage door supplier · Tulsa, OK</p><h1 class="font-[var(--font-head)] text-5xl sm:text-7xl font-bold leading-[1.05] mb-7" style="color:#134E4A">Fast Garage Door Repair</h1>
+        <p class="text-lg sm:text-xl mb-10 max-w-2xl mx-auto" style="color:#64748B">Same-day service and emergency response in Tulsa, OK</p><div class="flex flex-wrap gap-4 justify-center"><a href="tel:+19188343667" class="btn-lift inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-lg" style="background:#0F766E;color:#FFFFFF"><svg class="w-5 h-5" fill="none" stroke="#FFFFFF" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Call Now</a><a href="#contact" class="btn-lift inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-lg border-2" style="border-color:#0F766E;color:#0F766E">Get a Free Quote</a></div><div class="flex flex-wrap gap-2 mt-8 justify-center"><span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold" style="background:#0F766E14;color:#134E4A"><span style="color:#0369A1">★★★★★</span> 5</span><span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold" style="background:#0F766E14;color:#134E4A"><svg class="w-4 h-4" fill="none" stroke="#0F766E" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Tulsa, OK</span><span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold" style="background:#0F766E14;color:#134E4A"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#0F766E" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Free estimates</span></div>
+      </div>
+    </section>
+<section class="py-8 border-y" style="background:#FFFFFF;border-color:#64748B22">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6"><div class="flex items-center gap-2 justify-center reveal">
+      <span style="color:#0369A1;letter-spacing:1px">★★★★★</span>
+      <span class="font-semibold text-sm sm:text-base" style="color:#134E4A">5 on Google</span>
+    </div><div class="flex items-center gap-2.5 justify-center reveal [transition-delay:60ms]">
+      <span class="inline-flex items-center justify-center w-9 h-9 rounded-full shrink-0" style="background:#0369A11a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#0369A1" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="font-semibold text-sm sm:text-base" style="color:#134E4A">Fast Response</span>
+    </div><div class="flex items-center gap-2.5 justify-center reveal [transition-delay:120ms]">
+      <span class="inline-flex items-center justify-center w-9 h-9 rounded-full shrink-0" style="background:#0369A11a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#0369A1" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="font-semibold text-sm sm:text-base" style="color:#134E4A">Locally Owned</span>
+    </div><div class="flex items-center gap-2.5 justify-center reveal [transition-delay:180ms]">
+      <span class="inline-flex items-center justify-center w-9 h-9 rounded-full shrink-0" style="background:#0369A11a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#0369A1" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="font-semibold text-sm sm:text-base" style="color:#134E4A">Free Estimates</span>
+    </div></div>
+  </section>
+<section id="about" class="py-28 sm:py-32" style="background:#F0FDFA">
+      <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+        <div class="reveal img-zoom rounded-3xl shadow-soft"><img src="https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=onvjctgW5tfFqq4F5DsqaA&cb_client=search.gws-prod.gps&w=1920&h=1129&yaw=271.40268&pitch=0&thumbfov=100" alt="Action Door | The Garage Door Man" class="w-full h-[380px] object-cover"></div>
+        <div class="reveal">
+          <h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold mb-6" style="color:#134E4A">About Us</h2>
+          <p class="text-lg leading-relaxed mb-6" style="color:#64748B">At Action Door, we pride ourselves on providing fast and reliable garage door services to the Tulsa community. Our team is dedicated to ensuring your garage door is safe and functioning properly.</p>
+          <div class="flex flex-wrap gap-6 text-sm font-bold">
+            <div><span class="text-2xl" style="color:#0F766E">★ 5</span><div style="color:#64748B">Customer rating</div></div>
+            <div><span class="text-2xl" style="color:#0F766E">Local</span><div style="color:#64748B">Tulsa, OK</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+<section id="services" class="py-28 sm:py-32" style="background:#FFFFFF">
+    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold text-center reveal mb-12" style="color:#134E4A">Our Services</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="p-6 reveal [transition-delay:0ms]" class="rounded-2xl card-lift" style="background:#F0FDFA">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#0369A11a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#0369A1" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+      <h3 class="font-bold text-lg mb-2" style="color:#134E4A">Door Repair</h3>
+      <p class="text-sm" style="color:#64748B">Broken springs and cable repair</p>
+    </div>
+    <div class="p-6 reveal [transition-delay:70ms]" class="rounded-2xl card-lift" style="background:#F0FDFA">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#0369A11a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#0369A1" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+      <h3 class="font-bold text-lg mb-2" style="color:#134E4A">New Install</h3>
+      <p class="text-sm" style="color:#64748B">Garage door installation services</p>
+    </div>
+    <div class="p-6 reveal [transition-delay:140ms]" class="rounded-2xl card-lift" style="background:#F0FDFA">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#0369A11a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#0369A1" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+      <h3 class="font-bold text-lg mb-2" style="color:#134E4A">Opener Repair</h3>
+      <p class="text-sm" style="color:#64748B">Garage door opener repair and replacement</p>
+    </div>
+    <div class="p-6 reveal [transition-delay:210ms]" class="rounded-2xl card-lift" style="background:#F0FDFA">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl" style="background:#0369A11a"><svg class="w-5 h-5 shrink-0" fill="none" stroke="#0369A1" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+      <h3 class="font-bold text-lg mb-2" style="color:#134E4A">Maintenance</h3>
+      <p class="text-sm" style="color:#64748B">Regular maintenance and tune-ups</p>
+    </div></div>
+    </div>
+  </section>
+<section id="reviews" class="py-28 sm:py-32" style="background:#F0FDFA">
+    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold mb-12 text-center reveal" style="color:#134E4A">What Customers Say</h2><div class="grid sm:grid-cols-3 gap-6">
+    <div class="p-6 reveal flex flex-col gap-3 [transition-delay:0ms]" class="rounded-2xl card-lift" style="background:#FFFFFF">
+      <div class="flex items-start justify-between"><div class="font-[var(--font-head)] text-5xl leading-none select-none" aria-hidden="true" style="color:#0F766E;opacity:.35">“</div><div class="text-sm pt-2" style="color:#0369A1;letter-spacing:2px">★★★★★<span style="opacity:.25"></span></div></div>
+      <p class="text-sm leading-relaxed flex-1" style="color:#134E4A">Iva was great! She immediately diagnosed my garage door issue, ordered the parts and made the appointment for 2 days later. She is very knowledgeable, friendly and a pleasure to deal with. She expertly repaired the door and answered all of my questions.</p>
+      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#0369A11a;color:#0369A1"><svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="#0369A1" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Google review</span>
+    </div>
+    <div class="p-6 reveal flex flex-col gap-3 [transition-delay:70ms]" class="rounded-2xl card-lift" style="background:#FFFFFF">
+      <div class="flex items-start justify-between"><div class="font-[var(--font-head)] text-5xl leading-none select-none" aria-hidden="true" style="color:#0F766E;opacity:.35">“</div><div class="text-sm pt-2" style="color:#0369A1;letter-spacing:2px">★★★★★<span style="opacity:.25"></span></div></div>
+      <p class="text-sm leading-relaxed flex-1" style="color:#134E4A">By far the best garage door company in Tulsa area. Don&#39;t waste your time calling any of the other &quot;local&quot; companies. They will try to rob you blond. Not this company. Show up on time and VERY reasonable pricing.</p>
+      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#0369A11a;color:#0369A1"><svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="#0369A1" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Google review</span>
+    </div>
+    <div class="p-6 reveal flex flex-col gap-3 [transition-delay:140ms]" class="rounded-2xl card-lift" style="background:#FFFFFF">
+      <div class="flex items-start justify-between"><div class="font-[var(--font-head)] text-5xl leading-none select-none" aria-hidden="true" style="color:#0F766E;opacity:.35">“</div><div class="text-sm pt-2" style="color:#0369A1;letter-spacing:2px">★★★★★<span style="opacity:.25"></span></div></div>
+      <p class="text-sm leading-relaxed flex-1" style="color:#134E4A">Action Door were great communicators and super friendly. After the install, they took a few minutes to make sure everything worked and that we knew next steps. Excellent service.</p>
+      <span class="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full w-fit" style="background:#0369A11a;color:#0369A1"><svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="#0369A1" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Google review</span>
+    </div></div></div>
+  </section>
+<section id="why" class="py-28 sm:py-32" style="background:#FFFFFF">
+    <div class="max-w-5xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold text-center reveal mb-12" style="color:#134E4A">Why Choose Us</h2>
+      <ul class="grid sm:grid-cols-2 gap-x-10 gap-y-5 max-w-3xl mx-auto">
+    <li class="flex items-start gap-3 reveal [transition-delay:0ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#0369A11a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#0369A1" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#134E4A">Fast and reliable service</span>
+    </li>
+    <li class="flex items-start gap-3 reveal [transition-delay:60ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#0369A11a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#0369A1" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#134E4A">Knowledgeable staff</span>
+    </li>
+    <li class="flex items-start gap-3 reveal [transition-delay:120ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#0369A11a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#0369A1" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#134E4A">Competitive pricing</span>
+    </li>
+    <li class="flex items-start gap-3 reveal [transition-delay:180ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#0369A11a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#0369A1" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#134E4A">Local expertise</span>
+    </li>
+    <li class="flex items-start gap-3 reveal [transition-delay:240ms]">
+      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full shrink-0 mt-0.5" style="background:#0369A11a"><svg class="w-4 h-4 shrink-0" fill="none" stroke="#0369A1" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      <span class="text-base" style="color:#134E4A">Friendly technicians</span>
+    </li></ul>
+    </div>
+  </section>
+<section id="process" class="py-28 sm:py-32" style="background:#F0FDFA">
+    <div class="max-w-6xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold text-center reveal mb-12" style="color:#134E4A">How It Works</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="relative p-6 reveal [transition-delay:0ms]" class="rounded-2xl card-lift" style="background:#FFFFFF">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-full font-[var(--font-head)] text-lg font-bold" style="background:#0F766E;color:#FFFFFF">1</div>
+      <p class="uppercase tracking-[0.15em] text-xs font-bold mb-1" style="color:#0369A1">Step 1</p>
+      <h3 class="font-bold text-lg mb-2" style="color:#134E4A">Schedule</h3>
+      <p class="text-sm" style="color:#64748B">Book your appointment online</p>
+    </div>
+    <div class="relative p-6 reveal [transition-delay:70ms]" class="rounded-2xl card-lift" style="background:#FFFFFF">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-full font-[var(--font-head)] text-lg font-bold" style="background:#0F766E;color:#FFFFFF">2</div>
+      <p class="uppercase tracking-[0.15em] text-xs font-bold mb-1" style="color:#0369A1">Step 2</p>
+      <h3 class="font-bold text-lg mb-2" style="color:#134E4A">Expert technicians diagnose the issue</h3>
+      <p class="text-sm" style="color:#64748B">Technicians arrive and assess the problem</p>
+    </div>
+    <div class="relative p-6 reveal [transition-delay:140ms]" class="rounded-2xl card-lift" style="background:#FFFFFF">
+      <div class="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-full font-[var(--font-head)] text-lg font-bold" style="background:#0F766E;color:#FFFFFF">3</div>
+      <p class="uppercase tracking-[0.15em] text-xs font-bold mb-1" style="color:#0369A1">Step 3</p>
+      <h3 class="font-bold text-lg mb-2" style="color:#134E4A">Repair</h3>
+      <p class="text-sm" style="color:#64748B">Fast and efficient repair services</p>
+    </div></div>
+    </div>
+  </section>
+<section id="faq" class="py-28 sm:py-32" style="background:#FFFFFF">
+    <div class="max-w-3xl mx-auto px-6"><h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold text-center reveal mb-8" style="color:#134E4A">Common Questions</h2>
+      <div>
+    <details class="reveal border-b py-5" style="border-color:#64748B33">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-lg" style="color:#134E4A">
+        <span>How quickly can you respond to emergencies?</span><svg class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="#0F766E" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <p class="mt-3 leading-relaxed" style="color:#64748B">We offer same-day emergency response for garage door repairs</p>
+    </details>
+    <details class="reveal border-b py-5" style="border-color:#64748B33">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-lg" style="color:#134E4A">
+        <span>Do you provide free estimates?</span><svg class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="#0F766E" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <p class="mt-3 leading-relaxed" style="color:#64748B">Yes, we provide free estimates for all our services</p>
+    </details>
+    <details class="reveal border-b py-5" style="border-color:#64748B33">
+      <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-lg" style="color:#134E4A">
+        <span>Can you install new garage doors?</span><svg class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="#0F766E" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <p class="mt-3 leading-relaxed" style="color:#64748B">Yes, we offer garage door installation services</p>
+    </details></div>
+    </div>
+  </section>
+<section class="relative overflow-hidden" style="background:linear-gradient(135deg, #0F766E 0%, #0369A1 100%)">
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true" style="background:radial-gradient(60% 80% at 80% 20%, #FFFFFF26 0%, transparent 60%)"></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-6 py-24 sm:py-28 text-center reveal">
+      <h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold mb-4" style="color:#FFFFFF">Ready to Get Started</h2>
+      <p class="text-lg mb-8 max-w-2xl mx-auto" style="color:#FFFFFF;opacity:.9">Contact us today to schedule your appointment</p>
+      <div class="flex flex-wrap gap-4 justify-center"><a href="tel:+19188343667" class="btn-lift inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-lg" style="background:#FFFFFF;color:#0F766E"><svg class="w-5 h-5" fill="none" stroke="#0F766E" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Call Now</a><a href="#contact" class="btn-lift inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-lg border-2" style="border-color:#FFFFFF;color:#FFFFFF">Get a Free Quote <svg class="w-5 h-5" fill="none" stroke="#FFFFFF" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </section>
+<section id="contact" class="py-28 sm:py-32" style="background:#F0FDFA">
+    <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-start reveal">
+      <div>
+      <h2 class="font-[var(--font-head)] text-4xl sm:text-5xl font-bold mb-6" style="color:#134E4A">Get In Touch</h2>
+      <p class="mb-6 inline-flex items-start gap-2" style="color:#64748B"><svg class="w-5 h-5" fill="none" stroke="#0F766E" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> <span>512 N Evanston Ave, Tulsa, OK 74110</span></p>
+      <div class="flex flex-col gap-3 w-fit">
+        <a href="tel:+19188343667" class="btn-lift inline-flex items-center gap-2 px-5 py-2 text-sm rounded-2xl font-bold" style="background:#0F766E;color:#FFFFFF">Call +19188343667</a>
+        
+        <a href="https://www.google.com/maps/search/?api=1&query=Action%20Door%20%7C%20The%20Garage%20Door%20Man%20512%20N%20Evanston%20Ave%2C%20Tulsa%2C%20OK%2074110%20Tulsa%2C%20OK" class="btn-lift inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-bold border-2" style="border-color:#0F766E;color:#0F766E">Get Directions</a>
+      </div>
+    </div>
+      <form class="quote-form flex flex-col gap-3" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="59f7344b-01f5-4568-8fbe-87ded7748b07">
+        <input type="hidden" name="subject" value="New quote request from Action Door | The Garage Door Man's website">
+        <input type="hidden" name="from_name" value="Action Door | The Garage Door Man website">
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
+        <h3 class="font-[var(--font-head)] text-xl font-bold" style="color:#134E4A">Request a Free Quote</h3>
+        <input name="name" required placeholder="Your name" autocomplete="name" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#FFFFFF;color:#134E4A">
+        <input name="phone" type="tel" required placeholder="Phone number" autocomplete="tel" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#FFFFFF;color:#134E4A">
+        <textarea name="message" rows="3" placeholder="How can we help?" class="px-4 py-3 rounded-lg border w-full" style="border-color:#64748B55;background:#FFFFFF;color:#134E4A"></textarea>
+        <button type="submit" class="btn-lift px-6 py-3 rounded-2xl font-bold" style="background:#0F766E;color:#FFFFFF">Get a Free Quote</button>
+        <p class="form-status text-sm" style="color:#64748B"></p>
+      </form>
+    </div>
+  </section>
+<footer class="pt-14 pb-8 border-t" style="background:#FFFFFF;border-color:#64748B22;color:#64748B">
+  <div class="max-w-6xl mx-auto px-6 grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <div>
+      <div class="font-[var(--font-head)] text-xl font-bold mb-3" style="color:#134E4A">Action Door | The Garage Door Man</div>
+      <p class="text-sm" style="opacity:.85">512 N Evanston Ave, Tulsa, OK 74110</p>
+      <p class="text-sm mt-2" style="opacity:.85"><span style="color:#0369A1">★</span> 5 on Google</p>
+    </div>
+    <div>
+      <div class="font-semibold mb-3" style="color:#134E4A">Explore</div>
+      <ul class="space-y-2 text-sm"><li><a href="#services" class="hover:opacity-100 transition-opacity" style="opacity:.85">Services</a></li><li><a href="#reviews" class="hover:opacity-100 transition-opacity" style="opacity:.85">Reviews</a></li><li><a href="#faq" class="hover:opacity-100 transition-opacity" style="opacity:.85">FAQ</a></li><li><a href="#contact" class="hover:opacity-100 transition-opacity" style="opacity:.85">Contact</a></li></ul>
+    </div>
+    <div>
+      <div class="font-semibold mb-3" style="color:#134E4A">Get in touch</div>
+      <a href="tel:+19188343667" class="flex items-center gap-2 text-sm mb-2 hover:opacity-100 transition-opacity" style="opacity:.85"><svg class="w-4 h-4" fill="none" stroke="#64748B" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +19188343667</a>
+      <a href="#contact" class="flex items-center gap-2 text-sm mb-2 hover:opacity-100 transition-opacity" style="opacity:.85"><svg class="w-4 h-4" fill="none" stroke="#64748B" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Tulsa, OK</a>
+    </div>
+  </div>
+  <div class="max-w-6xl mx-auto px-6 mt-10 pt-6 border-t text-center text-sm" style="border-color:#64748B22;opacity:.85">
+    © 2026 Action Door | The Garage Door Man · Tulsa, OK
+  </div>
+</footer>
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+  // Shadow on the sticky nav once the page has scrolled a touch.
+  const nav = document.getElementById('site-nav');
+  if (nav) {
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // Submit the quote form via Web3Forms without leaving the page; graceful inline status.
+  document.querySelectorAll('.quote-form').forEach((form) => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const status = form.querySelector('.form-status');
+      const btn = form.querySelector('button[type=submit]');
+      if (btn) btn.disabled = true;
+      if (status) status.textContent = 'Sending…';
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        const data = await res.json();
+        if (data.success) { form.reset(); if (status) status.textContent = '✅ Thanks! We\'ll be in touch shortly.'; }
+        else if (status) status.textContent = '⚠ Something went wrong — please call us instead.';
+      } catch (err) {
+        if (status) status.textContent = '⚠ Something went wrong — please call us instead.';
+      }
+      if (btn) btn.disabled = false;
+    });
+  });
+</script>
+<script>
+  // View beacon — pings only for REAL visitors (never local previews / the recording pass).
+  if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {
+    fetch('https://cero-beacon.alezekka24.workers.dev/v/75', { method: 'POST', keepalive: true }).catch(() => {});
+  }
+</script>
+</body>
+</html>
